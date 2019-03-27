@@ -1,0 +1,56 @@
+工作区 暂存区 本地仓库 远程仓库
+
+git commit -m "first commit"
+git remote add origin https://github.com/zhaojainfei/lianxi.git
+git push -u origin master
+
+为了便于管理，Git要求每个远程主机都必须指定一个主机名。
+git remote -- 列出所有的远程主机名称
+git remote -v -- 列出所有的远程主机名称及地址
+git remote rename <原主机名> <新主机名>
+git remote update origin -- 更新远程分支等
+
+git reset --hard commit_id -- 放弃已经commit -- 代码也会回滚
+git reset HEAD <file>  -- 恢复版本库的文件到暂存区
+git checkout -- <file> -- 恢复暂存区的文件到工作区
+
+git status
+git init 会生成一个.git隐藏文件
+git config --list 查看配置信息
+
+1.设置用户名
+git config --global user.name '278883741'
+1.设置用户名邮箱
+git config --global user.email 'q278883741@qq.com'
+
+Git本地仓库与Github远程仓库关联 ssh http
+1.获取sshkey
+   $ ssh-keygen -t rsa -C "q278883741@qq.com"
+   然后他会显示一个目录生成文件id_rsa.pub，key就存储在这里面
+   在https://github.com/settings/keys地址创建key
+   然后创建好仓库后，git remote add origin https://github.com/278883741/MyHearthStone.git 关联仓库
+   然后操作完之后git push -u origin master(第二次$ git push origin master就可以这样) 要这样一下才能把本地改的添加到远程git仓库
+=======================================
+git fetch origin_visa dev 
+git merge origin_visa/dev
+等于
+git pull origin_visa dev 
+git checkout -- 放弃工作版本的修改
+git diff
+
+1.添加文件
+git add test123.txt
+git commit -m '这里是描述 test123.txt'
+
+2.修改文件
+直接修改文件，然后重复上述步骤
+
+3.删除文件
+git commit -m '删除文件'
+
+--上面是本地git，下面操作开源git,首先克隆到本地
+git clone  https://github.com/278883741/test.git
+
+-- 更新分支
+git remote update origin --prune
+

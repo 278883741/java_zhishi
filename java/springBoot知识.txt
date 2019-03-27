@@ -1,0 +1,73 @@
+springboot 整合许多第三方依赖，并且做了默认配置,内嵌了serlet（tomcat）容器
+
+创建项目
+   http://start.spring.io/
+创建多moudle项目
+    新建project - meaven
+    mutile-project 新建moudle，最后选路径的时候再mutile下面多写一个文件夹路径
+热部署
+  安装devtools，然后cril+F9，控制台会相应输出restart信息，即加载我们修改了的代码。
+application文件
+  所有配置项地址：https://docs.spring.io/spring-boot/docs/2.1.0.BUILD-SNAPSHOT/reference/htmlsingle/#common-application-properties
+
+thymeleaf标签
+https://www.thymeleaf.org/doc/articles/standarddialect5minutes.html
+
+===================================================================
+spring-mvc请求处理的基本流程
+
+spring-mvc处理请求的方式 : 非注解版（2.0及之前版本）、注解版（2.5之后）
+
+a 客户端提交hello.do请求,将请求提交到web.xml(web容器)，被web容器中注册的DIspatcherServlet拦截到；DispatcherServlet将其拦截到的所有请求转发给ioc容器中注册的请求解析器
+
+b spring-mvc为了实现对请求的解析提供了两种请求解析器 : 字符/字节 
+  字符解析器提供了一个HandlerMapping接口，可以使用它提供的任何一个实现类实现对请求的解析。在该接口中，提供了两个默认的请求解析器：SimpleUrlHandlerMapping /DefaultAnnoationHandlerMapping 具体使用哪一个，
+  取决于当前的ioc环境是否是注解环境，将ioc环境设置为注解环境的方式 : context:component-scan 扫描包结构。 
+请求解析器解析请求的方式都不一样，但是解析的结构是相同的: 
+获取表示请求的字符串 “/hello”
+
+@Controller 
+使用该注解标注的类会成为ioc容器实例化的对象 
+相当于手动在ioc容器中配置一个bean
+
+提供了一个其他注解(@Compeont @Service @Repository)不具备的功能 
+被该注解标注的类会自动实现Controller接口，成为spring-mvc的请求处理器。
+====================================================================
+https://blog.csdn.net/fxbin123/article/details/80387668 - SpringBoot 常用注解简单说明
+https://blog.csdn.net/fxbin123/article/details/80603678 - SpringBoot设置支持跨域请求
+https://blog.csdn.net/fxbin123/article/details/81058618 - Spring Boot 启动原理 - 了解
+
+-- 查看linux版本信息
+lsb_release -a
+
+===============centos安装Docker======================
+1.添加yum源
+yum install epel-release -y
+yum clean all
+yum list
+2.安装并运行Docker
+yum install docker-io -y
+systemctl start(stop,restart) docker -- 以守护进行启动docker服务
+3.检查安装结果
+docker info
+
+docker search rabbitmq:management
+docker images -- 列举所有镜像
+docker pull rabbitmq:management(版本) -- pull镜像
+docker rmi -f rabbitmq:management -- 删除镜像
+
+docker run -d --name "rabbitMQ" -p 5672:5672 -p 15672:15672 rabbitmq:management 
+运行容器   -d后台运行           -p端口映射 物理机:docker)
+docker ps - 列举所有运行的docker容器
+docker stop name
+docker start name
+docker rm name -- 删除容器
+
+-- 阿里云Docker Registry
+$ sudo docker login --username=yushu2691894 registry.cn-qingdao.aliyuncs.com 密码2691894sc
+-- 将镜像推送到Registry
+$ sudo docker login --username=yushu2691894 registry.cn-qingdao.aliyuncs.com
+$ sudo docker tag [ImageId] registry.cn-qingdao.aliyuncs.com/yushusc/test:[镜像版本号] -- 重命名镜像
+$ sudo docker push registry.cn-qingdao.aliyuncs.com/yushusc/test:[镜像版本号]
+-- 拉取镜像
+$ sudo docker pull registry.cn-qingdao.aliyuncs.com/yushusc/test:[镜像版本号]

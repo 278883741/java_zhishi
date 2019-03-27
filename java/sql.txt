@@ -1,0 +1,123 @@
+# 1.查询“001”课程比“002”课程成绩高的所有学生的学号; !!!!!
+SELECT DISTINCT(sc1.s_no) from
+(SELECT s_no,score FROM sc where c_no = '001') sc1,
+(SELECT s_no,score FROM sc where c_no = '002') sc2
+where sc1.s_no = sc2.s_no and sc1.score > sc2.score;
+
+# 2、查询平均成绩大于60分的同学的学号和平均成绩；
+SELECT s_no,avg(score) from sc GROUP BY s_no HAVING avg(score) > 60;
+
+# 3、查询所有同学的学号、姓名、选课数、总成绩；
+SELECT s_no,name,
+(SELECT count(1) FROM sc where s_no = student.s_no) as '选课数',
+(SELECT sum(score) FROM sc where s_no = student.s_no GROUP BY s_no) as '总成绩'
+FROM student ;
+
+# 5、查询没学过“叶平”老师课的同学的学号、姓名；!!!!!
+SELECT * from student where s_no not in
+(
+    SELECT DISTINCT(s_no) from sc where c_no in (select c_no from course where t_no = (SELECT t_no from teacher where name = '田老师'))
+);
+
+# 6、查询学过“001”并且也学过编号“002”课程的同学的学号、姓名； -----
+EXPLAIN SELECT A.s_no from
+(
+    (SELECT s_no from sc where c_no = '001') as A
+    INNER JOIN
+    (SELECT s_no from sc where c_no = '002') as B
+    ON A.s_no = B.s_no
+);
+
+# 10、查询没有学全所有课的同学的学号、姓名； -----
+SELECT temp.s_no from
+(
+    (SELECT s_no,count(1) as count from sc GROUP BY s_no) as temp
+)where temp.count < (SELECT count(1) from course);
+
+# 11、查询至少有一门课与学号为“10004”的同学所学相同的同学的学号和姓名；-----
+SELECT DISTINCT(s_no) from sc where c_no in
+(
+    SELECT c_no from sc where s_no = '10004'
+)and s_no != '10004';
+
+# 12、查询至少学过学号为“10002”同学所有一门课的其他同学学号和姓名；
+SELECT s_no from sc where s_no != '10002' and c_no in
+(
+    SELECT c_no from sc where s_no = '10002'
+) GROUP BY s_no HAVING count(1) = ( SELECT count(1) from sc where s_no = '10002');
+
+
+# 13、把“SC”表中“田老师”老师教的课的成绩都更改为此课程的平均成绩；
+UPDATE sc INNER JOIN
+(
+    SELECT c_no,avg(score) as score from sc where c_no in
+    (
+        select c_no from course where t_no = (SELECT t_no FROM teacher where name = '田老师')
+    )GROUP BY c_no
+)temp on sc.c_no = temp.c_no set sc.score = temp.score;
+
+# 14、查询和“1002”号的同学学习的课程完全相同的其他同学学号和姓名；
+SELECT s_no from sc where c_no in
+(
+    SELECT c_no from sc where s_no = '10005'
+)GROUP BY s_no HAVING count(1) = (SELECT count(1) from sc where s_no = '10005');
+
+# 15、删除学习“田老师”老师课的SC表记录；
+delete from sc where c_no in
+(
+    select c_no from course where t_no = (SELECT t_no FROM teacher where name = '田老师')
+);
+
+# 16、向SC表中插入一些记录，这些记录要求符合以下条件：没有上过编号“003”课程的同学学号、2号课的平均成绩；
+INSERT INTO sc(s_no, c_no, score)
+SELECT s_no,'002',(SELECT avg(score) from sc where c_no = '002')from student where s_no not in(SELECT s_no from sc where c_no = '003');
+
+# 17、按平均成绩从高到低显示所有学生的“数据库”、“企业管理”、“英语”三门的课程成绩，按如下形式显示： 学生ID,,数据库,企业管理,英语,有效课程数,有效平均分
+SELECT s_no,
+(SELECT score from sc where c_no = '001' and s_no = temp.s_no) as '001成绩',
+(SELECT score from sc where c_no = '002' and s_no = temp.s_no) as '002成绩',
+(SELECT score from sc where c_no = '003' and s_no = temp.s_no) as '003成绩',
+(SELECT count(1) from sc WHERE s_no = temp.s_no) as '有效课程数',
+avg(score) as score1
+from sc temp GROUP BY s_no ORDER BY score1 desc;
+
+# 21、查询不同老师所教不同课程平均分从高到低显示
+SELECT c_no,
+(SELECT t_no from course where c_no = sc.c_no),
+avg(score) as score1 from sc GROUP BY c_no ORDER BY score1 desc;
+
+# 22、查询如下课程成绩前 2 名  !!!!!
+SELECT * from sc temp1 WHERE c_no in('001','002') and
+(SELECT count(1) from sc where c_no = temp1.c_no and score > temp1.score) < 2
+ORDER BY temp1.c_no,temp1.score desc;
+# 这样查默认查出来每组第一名,不知道咋回事
+SELECT s_no,c_no,score from sc where c_no in('001','002') GROUP BY c_no ORDER BY score desc;
+
+# 23、课程ID,课程名称,[100-85],[85-70],[70-60],[ <60]
+SELECT c_no,name,
+(SELECT count(1) from sc where c_no =  course.c_no and score BETWEEN 85 and 100) as '[100-85]',
+(SELECT count(1) from sc where c_no =  course.c_no and score BETWEEN 70 and 85) as '[100-85]',
+(SELECT count(1) from sc where c_no =  course.c_no and score BETWEEN 60 and 70) as '[100-85]',
+(SELECT count(1) from sc where c_no =  course.c_no and score < 60) as '[<60]'
+from course;
+
+# 24、查询学生平均成绩及其名次 !!!!!
+
+SELECT s_no,
+    (SELECT 1 + count(1) from (SELECT s_no ,avg(score) as avgScore from sc GROUP BY s_no)temp2 where temp2.avgScore > temp.avgScore) as '名次'
+from
+(
+   SELECT s_no ,avg(score) as avgScore from sc GROUP BY s_no
+)temp;
+
+# 25、查询不同课程成绩相同的学生的学号、课程号、学生成绩
+SELECT * from
+(SELECT * from sc )as A,
+(SELECT * from sc )as B
+where A.score = B.score and A.c_no != B.c_no;
+
+
+
+CREATE INDEX index_sno on sc(s_no, c_no, score) ;
+SHOW INDEX from sc;
+show variables like '%log_output%';

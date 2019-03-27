@@ -1,0 +1,7 @@
+A类的a1方法没有标注@Transactional，a2方法标注@Transactional，在a1里面调用a2；
+将@Transactional注解标注在非public方法上。
+
+@Transactional的工作机制是基于AOP实现的，而AOP是使用动态代理实现的。
+
+第一种为什么是错误用法，在a1里调用a2，即直接执行a2的原生方法，并不通过创建代理对象进行调用，
+所以并不会进入TransactionInterceptor的invoke方法，不会开启事务。
