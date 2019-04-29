@@ -8,7 +8,7 @@ git push -u origin master
 git remote -- 列出所有的远程主机名称
 git remote -v -- 列出所有的远程主机名称及地址
 git remote rename <原主机名> <新主机名>
-git remote update origin -- 更新远程分支等
+git remote update origin --prune -- 更新远程分支
 
 git reset --hard commit_id -- 放弃已经commit -- 代码也会回滚
 git reset HEAD <file>  -- 恢复版本库的文件到暂存区
@@ -35,7 +35,6 @@ git fetch origin_visa dev
 git merge origin_visa/dev
 等于
 git pull origin_visa dev 
-git checkout -- 放弃工作版本的修改
 git diff
 
 1.添加文件
@@ -45,12 +44,6 @@ git commit -m '这里是描述 test123.txt'
 2.修改文件
 直接修改文件，然后重复上述步骤
 
-3.删除文件
-git commit -m '删除文件'
 
 --上面是本地git，下面操作开源git,首先克隆到本地
 git clone  https://github.com/278883741/test.git
-
--- 更新分支
-git remote update origin --prune
-

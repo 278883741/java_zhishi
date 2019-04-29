@@ -1,5 +1,5 @@
-A类的a1方法没有标注@Transactional，a2方法标注@Transactional，在a1里面调用a2；
-将@Transactional注解标注在非public方法上。
+1. A类的a1方法没有标注@Transactional，a2方法标注@Transactional，在a1里面调用a2；
+2. 将@Transactional注解标注在非public方法上。
 
 @Transactional的工作机制是基于AOP实现的，而AOP是使用动态代理实现的。
 
