@@ -25,7 +25,7 @@ Vector : 底层通过synchronized修饰，从而实现线程安全的效果。�
 CopyOnWriteArrayList : 底层通过ReentrantLock加锁的方式实现线程安全的效果。相对于synchronized，有更好的锁投票机制，能在激烈的锁竞争问题上表现更佳的性能。
 
 
-
+https://pan.baidu.com/share/init?surl=_n8pos-hW1BFkpxjqI6bbQ
 
 
 

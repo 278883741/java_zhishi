@@ -97,3 +97,11 @@ APR：Apr是在Tomcat上运行高并发应用的首选模式，但是需要安装apr、apr-utils、tomcat
 netstat –nat | grep 8083
 2、线程
 ps aux|grep 'java'
+
+【Tomcat】tomcat logs 目录下各日志文件的含义
+https://www.cnblogs.com/qlqwjy/p/8036091.html
+1.catalina.日期.log
+　　这个主要是记录tomcat启动时候的信息，类似于我们在eclipse中启动服务的时候在控制台看到的信息。在里面可以看到启动的JVM参数以及操作系统等日志信息。
+    如果没有使用log4j等日志机制，系统的的错误信息与打印语句也在这个日志文件中记录。(linux下所有的日志都在catalina.out中)
+5.localhost_access_log.日期.txt
+　　这个是存放访问tomcat的请求的所有地址以及请求的路径、时间，请求协议以及返回码等信息(重要)

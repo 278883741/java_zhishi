@@ -76,7 +76,8 @@ StringBuffer和StringBuilder
   类可能只要求可执行即可，因此继承整个Thread类的开销过大。
 
 Thread类中的start()和run()方法有什么区别?
-  start()方法被用来启动新创建的线程，而且start()内部调用了run()方法，这和直接调用run()方法的效果不一样。当你调用run()方法的时候，只会是在原来的线程中调用，没有新的线程启动，start()方法才会启动新线程。
+  start()方法被用来启动新创建的线程，而且start()内部调用了run()方法，这和直接调用run()方法的效果不一样。当你调用run()方法的时候，只会是在原来的线程中调用，没有新的线程启动，start()方法
+  才会启动新线程。
 
 wait()与sleep()的区别
   sleep()来自Thread类，和wait()来自Object类。调用sleep()方法的过程中，线程不会释放对象锁。而 调用 wait 方法线程会释放对象锁

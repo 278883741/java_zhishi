@@ -90,7 +90,7 @@ avg(score) as score1 from sc GROUP BY c_no ORDER BY score1 desc;
 SELECT * from sc temp1 WHERE c_no in('001','002') and
 (SELECT count(1) from sc where c_no = temp1.c_no and score > temp1.score) < 2
 ORDER BY temp1.c_no,temp1.score desc;
-# 这样查默认查出来每组第一名,不知道咋回事
+# 这样查默认查出来每组第一名,不知道咋回事 --- 不理解啥玩意
 SELECT s_no,c_no,score from sc where c_no in('001','002') GROUP BY c_no ORDER BY score desc;
 
 # 23、课程ID,课程名称,[100-85],[85-70],[70-60],[ <60]
