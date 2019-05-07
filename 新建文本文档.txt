@@ -1,0 +1,107 @@
+create table sys_role_permission
+(
+	id int(20) auto_increment
+		primary key,
+	role_id int(20) not null comment '角色ID',
+	permission_id int(20) not null comment '权限ID',
+	operator varchar(30) null comment '创建人',
+	created datetime null comment '创建时间',
+	deleted datetime null comment '删除时间/失效时间',
+	delete_status bit default b'0' null comment '删除状态0为未删除/可用，1为已删除/不可用'
+)
+;
+
+create index permissionid
+	on sys_role_permission (permission_id)
+;
+
+create index role_id
+	on sys_role_permission (role_id)
+;
+
+
+
+create table sys_role
+(
+	id int(32) auto_increment
+		primary key,
+	role_name varchar(30) not null comment '角色名称',
+	operator_no varchar(30) null comment '创建人/操作人',
+	create_time datetime null comment '创建时间',
+	update_time datetime null comment '更新时间',
+	delete_status bit default b'0' null comment '逻辑删除状态0为未删除/可用，1为已删除/不可用',
+	description varchar(50) null comment '角色描述'
+)
+;
+
+
+
+create table sys_user_role
+(
+	id int(20) auto_increment
+		primary key,
+	user_id int(20) not null comment '用户ID',
+	role_id int(20) not null comment '角色ID',
+	operator varchar(30) null comment '操作人/创建人',
+	created datetime null comment '创建时间',
+	deleted datetime null comment '删除时间/失效时间',
+	delete_status bit default b'0' null comment '逻辑删除状态0为未删除/可用，1为已删除/不可用',
+	oaid varchar(20) default '' null comment 'oa工号'
+)
+;
+
+create index oaid
+	on sys_user_role (oaid)
+;
+
+create index role_id
+	on sys_user_role (role_id)
+;
+
+create index user_id
+	on sys_user_role (user_id)
+;
+
+
+
+create table sys_user
+(
+	id bigint auto_increment
+		primary key,
+	oaid varchar(20) default '' not null comment '账号',
+	password varchar(200) null comment '密码',
+	update_time datetime null comment '更新时间',
+	username varchar(20) null comment '用户名',
+	department_id int null comment '所属部门id',
+	department_name varchar(20) null comment '所属部门名称',
+	delete_status bit null comment '逻辑删除状态',
+	enable_status int(1) null comment '是否启用：1-启用 0-禁用',
+	operator_no varchar(20) null comment '操作人',
+	create_time datetime null comment '创建时间',
+	agent_id varchar(255) null comment '代理id',
+	is_inner int null comment '是否为内部顾问：1-内部 0-外部',
+	member_id varchar(255) null,
+	constraint UK_oaid
+		unique (oaid)
+)
+comment '后台管理用户表'
+;
+
+
+
+create table sys_permission
+(
+	id int(20) auto_increment
+		primary key,
+	permission_name varchar(150) null comment '权限名称',
+	permission_url varchar(150) default '' not null comment '权限路径',
+	operator varchar(30) null comment '操作人',
+	created datetime null comment '创建时间',
+	deleted datetime null comment '删除时间/失效时间',
+	delete_status bit default b'0' null comment '删除状态0为未删除/可用，1为已删除/不可用',
+	level int null comment '权限级别',
+	sort int null comment '排序值',
+	parent_id int null comment '父级id'
+)
+;
+
