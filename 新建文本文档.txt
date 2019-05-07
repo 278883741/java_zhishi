@@ -1,0 +1,100 @@
+create table card
+(
+	Id int auto_increment
+		primary key,
+	param_name varchar(128) null,
+	EName varchar(255) default 'NULL' null,
+	Type int not null comment '卡牌类型,关联表HS_CardType',
+	Occupation int not null comment '职业,关联表HS_CardOccupation',
+	Rarity int not null comment '稀有度,关联表HS_CardRarity',
+	Cost int not null,
+	Atk int not null,
+	Health int not null,
+	Kind int not null comment '卡牌种类，关联表Card_Kind',
+	param_set int null,
+	Description varchar(255) default '''''' not null,
+	Dust_Decompose int default '0' null comment '分解获得的尘',
+	Dust_Decompose_Golden int default '0' null comment '金色分解获得的尘',
+	Dust_Synthesis int default '0' null comment '合成需要的尘',
+	Dust_Synthesis_Golden int default '0' null comment '金色合成需要的尘',
+	Taunt bit default b'0' null comment '嘲讽',
+	Freeze bit default b'0' null comment '冻结',
+	Windfury bit default b'0' null comment '风怒',
+	Battlecry bit default b'0' null comment '战吼',
+	Stealth bit default b'0' null comment '潜行',
+	Combo bit default b'0' null comment '连击',
+	Aura bit default b'0' null comment '光环',
+	Charge bit default b'0' null comment '冲锋',
+	Grant_charge bit default b'0' null comment '过载',
+	Spellpower bit default b'0' null comment '法强',
+	Silence bit default b'0' null comment '沉默',
+	Enrage bit default b'0' null comment '激怒',
+	Divine_shield bit default b'0' null comment '圣盾',
+	Deathrattle bit default b'0' null comment '亡语',
+	Secret bit default b'0' null comment '奥秘',
+	Inspire bit default b'0' null comment '激励',
+	Mission bit default b'0' null comment '任务',
+	Lifesteal bit default b'0' null comment '吸血',
+	IsShow bit default b'0' null,
+	CreateDate datetime default CURRENT_TIMESTAMP null
+)
+;
+
+create table card_kind
+(
+	Id int auto_increment
+		primary key,
+	Name varchar(255) null comment ''''''
+)
+comment '卡牌种类'
+;
+
+create table card_occupation
+(
+	Id int auto_increment
+		primary key,
+	Name varchar(255) default '''''' null
+)
+comment '职业'
+;
+
+create table card_rarity
+(
+	Id int auto_increment
+		primary key,
+	Name varchar(255) default '''''' null
+)
+comment '卡牌稀有度'
+;
+
+create table card_set
+(
+	Id int auto_increment
+		primary key,
+	Name varchar(255) default '''''' null
+)
+comment '卡牌版本'
+;
+
+create table card_type
+(
+	Id int auto_increment
+		primary key,
+	Name varchar(255) default '''''' null
+)
+comment '卡牌类型'
+;
+
+create table hs_content
+(
+	id int auto_increment
+		primary key,
+	url varchar(500) default 'NULL' null,
+	depth int null,
+	crawledTime datetime null,
+	spiderName varchar(500) default 'NULL' null,
+	referer varchar(500) default 'NULL' null,
+	outerHtml varchar(19999) default '''NULL''' null
+)
+;
+
