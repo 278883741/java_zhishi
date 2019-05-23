@@ -147,3 +147,13 @@ create table sys_permission
       <version>8.5.20</version>
       <scope>provided</scope>
     </dependency>
+
+
+
+    <Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true">
+         <Context docBase='imooc-video-0.0.1-SNAPSHOT' path='/' reloadable='false' />
+         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+               prefix="localhost_access_log" suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+      </Host>
