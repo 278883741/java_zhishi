@@ -1,0 +1,2 @@
+INSERT INTO hearthstone.sys_user_role (id, user_id, role_id, operator, created, deleted, delete_status, oaid) VALUES (1, 1, 1, 'yushu', '2019-05-08 02:05:19', null, false, '');
+INSERT INTO hearthstone.sys_user_role (id, user_id, role_id, operator, created, deleted, delete_status, oaid) VALUES (2, 2, 2, 'yushu', '2019-05-08 02:05:19', null, false, '');

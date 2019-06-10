@@ -1,0 +1,12 @@
+INSERT INTO hearthstone.sys_role_permission (id, role_id, permission_id, operator, created, deleted, delete_status) VALUES (1, 1, 1, 'yushu', '2019-05-08 02:03:46', null, false);
+INSERT INTO hearthstone.sys_role_permission (id, role_id, permission_id, operator, created, deleted, delete_status) VALUES (2, 1, 2, 'yushu', '2019-05-08 02:03:46', null, false);
+INSERT INTO hearthstone.sys_role_permission (id, role_id, permission_id, operator, created, deleted, delete_status) VALUES (3, 1, 3, 'yushu', '2019-05-08 02:03:46', null, false);
+INSERT INTO hearthstone.sys_role_permission (id, role_id, permission_id, operator, created, deleted, delete_status) VALUES (4, 1, 4, 'yushu', '2019-05-08 02:03:46', null, false);
+INSERT INTO hearthstone.sys_role_permission (id, role_id, permission_id, operator, created, deleted, delete_status) VALUES (6, 1, 5, 'yushu', '2019-05-08 02:03:46', null, false);
+INSERT INTO hearthstone.sys_role_permission (id, role_id, permission_id, operator, created, deleted, delete_status) VALUES (7, 1, 6, 'yushu', '2019-05-08 02:03:46', null, false);
+INSERT INTO hearthstone.sys_role_permission (id, role_id, permission_id, operator, created, deleted, delete_status) VALUES (8, 1, 7, 'yushu', '2019-05-08 02:03:46', null, false);
+INSERT INTO hearthstone.sys_role_permission (id, role_id, permission_id, operator, created, deleted, delete_status) VALUES (9, 1, 8, 'yushu', '2019-05-08 02:03:46', null, false);
+INSERT INTO hearthstone.sys_role_permission (id, role_id, permission_id, operator, created, deleted, delete_status) VALUES (10, 1, 9, 'yushu', '2019-05-08 02:03:46', null, false);
+INSERT INTO hearthstone.sys_role_permission (id, role_id, permission_id, operator, created, deleted, delete_status) VALUES (24, 2, 5, null, '2019-05-29 14:18:56', null, null);
+INSERT INTO hearthstone.sys_role_permission (id, role_id, permission_id, operator, created, deleted, delete_status) VALUES (25, 2, 6, null, '2019-05-29 14:18:56', null, null);
+INSERT INTO hearthstone.sys_role_permission (id, role_id, permission_id, operator, created, deleted, delete_status) VALUES (26, 2, 7, null, '2019-05-29 14:18:56', null, null);
