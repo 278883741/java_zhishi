@@ -1,0 +1,728 @@
+服务商信息表（所有转包使用到的服务商信息都要维护在表里）
+[dbo].[scdp_Agent]
+[ID] 
+[Agent_ID] -- 代理商标识
+[GTSID] --GTS编号
+[CompanyFullName] -- 单位名称
+[AgentLevel] -- 代理商级别
+[StarServiceLevel] -- 星级服务级别
+[AgentCode] -- 代理商编码
+[Office] --办事处
+[CompanyEmail] -- 单位邮箱
+[CompanyTel] -- 单位电话
+[CompanyFax] -- 单位传真
+[LinkMan] --联系人
+[AgentType] -- 代理商类型:1,服务合作审批;2,短名单;
+[AgentEmail] -- 服务商商务邮箱
+[AgentCodeCommon] -- 所有系统通用代理商编码
+[AgentSendEmail] --服务商总部接口人邮箱
+[TotalServiceType] --总代/非总代
+[ServiceType] -- 服务商类型：1，普通服务商；2，运营商专业服务商;3,专业服务商;4,普通/运营商共用服务商;6,安全服务商;7,云计算服务商;5,其他
+[Remark] -- 备注
+[IsDelete] -- 是否删除：0，未删除；1，已删除
+
+服务商框架协议表（用于自动审批）
+[dbo].[scdp_AgentAgreement]
+[ID] 
+[AgreementCode] --框架协议编号
+[AgentName] --服务商名称
+[AgreementType] --协议类型 1,普通服务商版;2,运营商直签版;3,专业服务商版;4,海外服务商版
+[DateStart] --协议开始时间
+[DateEnd] --协议结算时间
+[DateRound] --协议时长
+
+服务商名称对应表（用于结算查询页面转包支付汇总清单）-- 数据库后台维护
+[dbo].[scdp_AgentChange]
+[OldName] --服务商旧名称
+[NewName] --服务商新名称
+
+Inside自动派单涉及的服务商信息表
+[dbo].[scdp_AgentInside]
+[ID] 
+[Agent_ID] --服务商编号
+[CompanyFullName] --服务商名称
+[Office] --办事处
+[StarServiceLevel] --服务星级
+[LinkMan] --联系人
+[CompanyEmail] --联系人邮件
+[CompanyTel] --联系人电话
+[AgentCode] --渠道编码
+[OrderS] --优先级
+
+运营商随项目自动派单涉及的服务商信息表
+[dbo].[scdp_AgentR]
+[ID] 
+[Agent_ID]  --服务商编号
+[CompanyFullName] --服务商名称
+[BranchType] --办事处类型
+[Office] --办事处
+[StarServiceLevel] --服务星级
+[LinkMan] --联系人
+[CompanyEmail] --联系人邮件
+[CompanyTel] --联系人电话
+[AgentCode] --渠道编码
+
+无线自动派单涉及的服务商信息表
+[dbo].[scdp_AgentW]
+[ID] [int] 
+[Agent_ID] --服务商编号
+[CompanyFullName] --服务商名称
+[Office] --办事处
+[StarServiceLevel] --服务星级
+[LinkMan] --联系人
+[CompanyEmail] --联系人邮件
+[CompanyTel] --联系人电话
+[AgentCode] --渠道编码
+[OrderS] --优先级
+
+小云自动派单涉及的服务商信息表
+[dbo].[scdp_AgentX]
+[ID] [int] 
+[Agent_ID] --服务商编号
+[CompanyFullName] --服务商名称
+[Office] --办事处
+[StarServiceLevel] --服务星级
+[LinkMan] --联系人
+[CompanyEmail] --联系人邮件
+[CompanyTel] --联系人电话
+[AgentCode] --渠道编码
+[OrderS] --优先级
+
+服务商打折系数表 -- 数据库后台维护
+CREATE TABLE [dbo].[scdp_AgentZ]
+[AgentName] --服务商名称
+[Rate] --折扣系数
+
+涉及自动派单的办事处 -- 数据库后台维护
+CREATE TABLE [dbo].[scdp_branch_Adui]
+[Branch_ID]  --办事处ID
+[Status]  --状态 1，参与自动派单;0，不参与
+
+办事处主任对应关系表
+[dbo].[Scdp_BranchMatchBoss]
+[id] 
+[BranchName] --办事处名称
+[SerManagerName] --办事处服务经理
+[SerBranchName] --办事处简称
+[Boss] --办事处主任
+[BossCode] --办事处主任工号
+[SerManagerCode] 
+
+转包审批中默认业务专员审批人表 -- 数据库后台维护
+[dbo].[Scdp_BranchUser]
+[BranchID] --办事处
+[EmpGuid] --审批人GUID
+[EmpName] --审批人姓名
+
+合同信息表
+CREATE TABLE [dbo].[scdp_Contract]
+[ID] 
+[ContractCode] -- 合同编号
+[PrjID] -- 项目ID
+[PrjType] -- 项目类型:1,为审批流程；2,短名单流程
+[AgentID] -- 代理商ID
+[AgentName] -- 代理商名称
+[ContractStatus] -- 合同状态
+[ContractMoney_Amount] -- 合同金额
+[ConfirmContract_Result] -- 确认合同结果
+[ContractType] --服务转包类型 1，购买;0,赠送
+[CreatedDate] -- 创建时间
+[PayMode] --付款方式
+[AgentConfirmDate] -- 代理商确认时间
+[ServiceCost] -- 服务参考成本金额
+[Second_Order_ID] -- 二级订单号
+[DeductAmount] -- 扣款金额
+[CertificateAmount] -- 商务证书金额
+[SendContractDate] -- 合同发送时间
+[DisagreeReasion] --不同意原因
+[EmailTo] --收件人
+[CCEmail] --抄送人
+[AgentConfirmDate2] --二次确认时间
+[AgentConfirmUserName] -- 代理商确认人姓名
+[AgentConfirmUserID] -- 代理商确认人账号
+
+合同变更信息表
+CREATE TABLE [dbo].[Scdp_Contract_Change]
+[ID] 
+[Prj_ID] --项目ID
+[Prj_Type] --项目类型
+[ChangePrice] --变更金额
+[ChangeDate] --创建时间
+[ChangeRemark] --变更说明
+[Status] --状态 0,未确认;1,已确认
+[ConfirmDate] --确认时间
+[ConfirmUserName] --确认人
+[ConfirmUserID] --确认人账号
+[ConfirmDate2] --二次确认时间
+
+合同附件
+[dbo].[scdp_Contract_File]
+[id] 
+[ContractID] --合同唯一编号
+[File_Path] -- 附件路径
+[CreateName] --创建者
+[Date_Created] -- 创建日期
+[Date_Delete] -- 删除日期
+[IS_Deleted] -- 删除标识:0,为已删除;1,为未删除
+[File_Type] -- 附件类型
+[File_Name] -- 附件名称
+
+非标合同
+[dbo].[SCDP_Contract_OwnFile]
+[ContractID] --合同唯一编号
+[PrjID] --项目ID
+[PrjType] --项目类型
+[FilePath] --附件路径
+[FileName] --附件名称
+[FileType] --附件类型
+[CreateName] --创建人
+[CreateDate] --创建时间
+
+文档类别
+[dbo].[scdp_DocumentClass]
+[id] 
+[DocType] -- 文档类别:1,考核管理;2,帮助;3,通知附件;4,服务商事件附件
+[DocClass] -- 文档小类
+[DocClassName] -- 文档小类名称
+
+文档信息表
+[dbo].[scdp_Documents]
+[id] 
+[File_Path] -- 附件路径
+[CreateName] --创建人
+[Date_Created] -- 创建日期
+[Date_Delete] -- 删除日期
+[IS_Deleted] -- 删除标识:0,为已删除;1,为未删除
+[File_Content] -- 附件内容
+[File_Type] -- 附件类型
+[File_Name] -- 附件名称
+[CallCount] -- 访问次数
+[DocType] -- 文档类别:1,考核管理;2,帮助;3,通知附件;4,服务商事件附件
+[NoticeID] 
+[DocClass] -- 文档小类别
+
+员工用户表
+[dbo].[scdp_Employee](
+[Guid] 
+[Emp_ID] -- 工程师工号(非本公司工号请编号大于5位数)
+[Emp_Name] -- 工程师姓名
+[Emp_Name_EN] -- 工程师英文名
+[Branch_ID] -- 工程师所属办事处
+[Emp_Grade] -- 工程师等级
+[Emp_Tel] -- 工程师手机号
+[Emp_Zip_Code] -- 工程师邮政编码
+[Emp_Address] -- 工程师地址
+[Emp_Room] -- 工程师办公室房间
+[Emp_Tel_Guding] -- 工程师固定电话
+[Emp_Email] -- 工程师EMail
+[Emp_Fax] -- 工程师传真号
+[Emp_Certification] -- 工程师所获证书
+[Emp_Merits] -- 工程师特长
+[Emp_Type] -- 工程师类别
+[Right_to_Order] -- 是否有权利建立合同
+[Emp_Password]  -- 用户密码
+[Emp_LoginName] -- 用户登陆名称
+[Trail] -- 尾全拼
+[power] -- 审核权
+[IsInTS] 
+[Master_Id] 
+[active] --是否有效
+[LatestLogin]
+[LoginCount] 
+[FailureTime] 
+[FailureCount] 
+[ProfessionDec]
+
+用户表色关系表
+[dbo].[scdp_Employee_Role_Relation]
+[Role_ID] -- 角色ID	
+[Empolyee_Guid] -- 人员GUID
+
+审批记录表
+[dbo].[scdp_Have_Done_Tasks]
+[ID] 
+[Process_ID] -- 流程序号0,撤销流程;1,转包流程;2,短名单流程;3,工程类结算;4,维护类结算;5,现场类结算&专业类结算;6,预付款结算;
+[Activity_ID] -- 流程活动序号
+[Pre_Activity_ID] -- 前流程活动序号
+[Activity_Status] -- 流程状态。0,未处理;1,处理中;2,已关闭
+[Emp_Guid] -- 用户ID
+[Cc_Emp_Guid] -- 抄送用户ID
+[Prj_ID] -- 项目ID
+[Prj_Type] -- 项目类型:0,撤销流程;1,转包流程;2,短名单流程;3,工程类结算;4,维护类结算;5,现场类结算;6,预付款结算;8,专业类结算
+[DateCreated] -- 任务创建时间
+[Date_Accepted] -- 活动接受时间
+[Date_Completed] -- 活动结束时间
+[Activity_Description] --流程活动描述
+[Emp_Name] -- 用户名
+[CC_Emp_Name] -- 抄送用户名
+[SPYJ] --审批意见
+
+邮件发送记录
+[dbo].[scdp_Mail_Box]
+[ID] 
+[ProjectID] --项目ID
+[FlowID] --任务ID
+[FlowType] --任务类型:0,撤销流程;1,转包流程;2,短名单流程;3,工程类结算;4,维护类结算;5,现场类结算;6,预付款结算;8,专业类结算
+[FlowStatus] --任务环节
+[Type] --邮件类型 1,邮件;2,邮催
+[IsSend] --是否完结
+[CreateTime] --创建时间
+[CreatePerson] --创建人
+[SendDate] --最新发送时间
+[MailTitle] --邮件标题
+[Receipt] --接收人
+[Cc] --抄送人
+[Content] --邮件内容
+[SendTime] --发送次数
+
+结算考核项信息表
+ [dbo].[scdp_Maintain_Assess]
+[ID] 
+[Prj_ID] -- 项目ID
+[Prj_Type] -- 项目类型:1,为审批流程；3,工程类结算;4,维护类结算;5,现场类结算;8,专业类结算
+[Original] -- 原始记录 
+[T_Score] -- 该项考核得分
+[B_Score] -- 分项得分
+[Assess_Type] -- 考核类型
+
+转包设备信息表
+[dbo].[scdp_Order_SecondOrderProductType]
+[ID] 
+[Prj_ID] -- 服务合作审批项目ID
+[Project_ID] -- 项目编码
+[BOMID] -- 设备BOM
+[Category] -- 设备大类
+[ProductType] -- 设备类型
+[ProductDesc] -- 产品描述
+[Qty] -- 数量
+[CountCost]
+[Amount] -- 目录价
+[TotalAmount] -- 总价,数量和目录价积
+[DelStatus] -- 删除状态:0,已删除;1,未删除
+[ContractID]
+[AddStatus] --是否加入计算
+[BID] --sip设备唯一编号
+[OldQty] --原始数量
+
+超期未结算项目说明
+[dbo].[scdp_OverdueRecordSettlement]
+[id] 
+[PrjID] --转包项目ID
+[Emp_Guid] --创建人GUID
+[Emp_Name] --创建人姓名
+[CreateDate] --创建时间
+[Content] --说明
+
+转包服务信息规则表 -- 数据库后台维护
+[dbo].[SCDP_Price]
+[ID] --规则ID
+[PriceType] --规则名称  
+[PriceValue] --排序
+
+项目大类
+[dbo].[scdp_Process]
+[ID] 
+[Process_Name] -- 过程名字
+
+项目环节
+[dbo].[scdp_Process_Activity]
+[ID] --环节ID
+[Process_ID] -- 过程ID
+[Activity_Name] --环节名称
+[Emp_Guid] --处理人GUID
+[CC_Emp_Guid]  --抄送人GUID
+[Emp_Name]  --处理人姓名
+[CC_Emp_Name] --抄送人姓名
+[orders] --排序
+
+转包数据信息表
+CREATE TABLE [dbo].[scdp_Project_Approval]
+[Prj_ID] -- 项目ID
+[Prj_Name]  -- 项目名称
+[Branch_ID] -- 办事处
+[IS_Operation] -- 是否是运营商项目:0,不是;1,是
+[IS_Big] -- 项目级别:1,普通项目;2,公司特级;3,公司一级;4,公司二级
+[Prj_Sale_Content] -- 服务产品销售内容
+[Prj_Sale_Price] -- 服务产品销售价格
+[Submit_Reason] -- 申请服务商交付的原因
+[Submit_Content] -- 需要服务商交付的内容
+[Submit_Area] -- 服务交付地点及涉及区域
+[CommendReason] -- 服务商推荐理由
+[Engineer_Demand] -- 对工程师要求
+[Service_Type] -- 服务类型:1,工程服务;2,现场支持;3,维护服务;4,工程实施及维护;5,工程及现场;6,现场及维护;7,工程、维护及现场服务;8,专业类服务;9,工程及专业服务;10,维护及专业服务;11,工程、维护及专业服务;12,现场及专业服务;13,工程、现场及专业服务;14,维护、现场及专业服务;15,工程、维护、现场及专业服务;
+[Equipment_Price] -- 项目目录价
+[Confirm_Sale_Content] -- 确认服务销售内容
+[Confirm_Sale_Price] -- 确认服务销售价格
+[Guide_Price] -- 服务指导价
+[Compute_Element] -- 计算元素
+[Real_Pay_Price] -- 实际服务交付总价格
+[Profit_BU]  -- 受益BU
+[Other_Description] -- 其它要求
+[Prj_Code] -- 项目编码
+[Second_Order_ID]  -- 二级订单号
+[Service_Contract_Alter] -- 服务合同金额更改；用正负数表示
+[Service_Contract_Alter3] -- 工程类服务合同金额更改；用正负数表示
+[Service_Contract_Alter4] -- 维护类服务合同金额更改；用正负数表示
+[Service_Contract_Alter5] -- 现场类服务合同金额更改；用正负数表示
+[Service_Contract_Alter8] -- 专业类服务合同金额更改；用正负数表示
+[Subcontract_Type] -- 服务转包类型;0,赠送;1,购买
+[Buy_Contract] -- 对应购买合同
+[IS_Settlement_Complete] -- 是否已全部结算完：0，未结算完；1，已结算完
+[Remark] -- 备注
+[History_Opinion]  -- 历史意见
+[Prj_Status] -- 项目状态 78 35 55 1 47 79 36 5 56 2 94 34 37
+[CreatedDate] -- 项目创建时间
+[CreateName] -- 创建人
+[AgentID] --服务商ID1
+[AgentName1] -- 服务商名称1
+[StarServiceLevel1] -- 服务星级1
+[LinkMan1] -- 联系人1
+[Tel1] -- 电话1
+[Email1] -- 邮箱1
+[AgentName2] -- 服务商名称2
+[StarServiceLevel2]-- 服务星级2
+[LinkMan2] -- 联系人2
+[Tel2]-- 电话2
+[Email2] -- 邮箱2
+[ServiceBlackEvent] -- 上季度有无服务黑色关键事件:0,无;1,有
+[CooperationPrice] -- 合作价格
+[Service_Contract_ID] -- 服务合同号（不含重复）
+[Second_Order_IDs] -- 二级订单号-s单号
+[Service_Contract_Amount] -- 服务合同金额
+[DelStatus] -- 删除状态:0,未删除;1,已删除;
+[RepealRemark] -- 撤消备注
+[Industry] --行业
+[scdpAgentID] --服务商scdp维护ID
+[HistoryAmount] -- 合同历史付款金额
+[HistoryRate] -- 已付款比例
+[AdvanceMount] -- 预付款金额
+[AdvanceStatus] -- 预付款状态:0,无预付;1,已支付;2,未支付;3,支付中;
+[OfficeCheckTime] -- 工程质量检查时间
+[RevisitTime] -- 800回访时间
+[AgentCodeCommon] -- 所有系统通用代理商编码
+[Other_Demand] --其他要求
+[Sip_CompanyId] --sip同步客户ID
+[Sip_CompanyFullName] --sip同步客户名称
+[UpdateTime] --更新时间
+[Largess_Service] --服务性质
+[Largess_Service_Cause]
+[ServiceConTractS] --服务合同号（含重复）
+[BranchBoss_Guid] -- 办事处主任GUID
+[BranchBoss_Name] -- 办事处主任名称
+[ServiceChargeToID] -- 服务费用归属编号(也就是办事处)
+[ServiceChargeToName] -- 服务费用归属名称
+[EmailTo] -- 接受者
+[CCEmail] -- 抄送
+[DestroyTime] 
+[ServiceTypeName] --服务商类型1
+[ServiceTypeName2] --服务商类型2
+[TestDays] 
+[docNo] --售前测试单号
+[IsProfession] --是否专业类转包
+[IsService]  --是否服务器类转包
+[Engineer] --服务商工程师
+[ContractVersion] --服务合同版本（与ServiceConTractS对应 ）
+[Final_Pay_Price] 
+[IsYJS] --是否云计算
+[IsZD] --是否自动派单
+[ContractSaleType] --服务销售类型
+[IsWxXy] --无线小云自动派单情况 1,无线小云合并（已停止）;2,无线;3,小云;
+[StartTime] 
+[EndTime]
+[SendChangeMail]  --是否发送变更协议
+[IsInside] --是否Inside自动派单
+[Currency] --币种
+[SigningSubject] --签约主体
+[IsQd] 
+[IsSend] 
+[SendDate] 
+[FailReason] 
+[IsQd1] 
+[BackDate1] 
+[FailReason1] 
+[IsQd2] 
+[BackDate2] 
+[FailReason2] 
+
+会签意见表
+[dbo].[scdp_Project_Checked]
+[ID] [int] 
+[FlowID] --任务ID
+[CheckUsersID] --会签人
+[CheckStatus] --会签状态 0,未审批;1,已审批;
+[CheckContent] --审批意见
+[Prj_ID] --项目ID
+[CheckTime] --审批时间
+
+支付汇总清单 说明
+[dbo].[scdp_Project_PNoRemark]
+[ID] 
+[Remark] 说明
+
+转包项目撤销信息表
+[dbo].[scdp_Project_Revoke]
+[ID] [int]
+[Prj_ID] --项目ID
+[Prj_Name] --项目名称
+[Reason] --撤销原因
+[Remark] --撤销备注
+[Prj_Status] --流程状态 1 2 6 34 78 90 91
+[CreateDate] --创建时间
+[CreateName] --创建人
+[ConfirmDate] --撤销确认时间
+[ConfirmUserName] --撤销确认人
+[ConfirmUserID] --撤销确认人账号
+[ConfirmDate2] --撤销二次确认时间
+
+结算数据信息表
+[dbo].[scdp_Project_Settlement]
+[ID] [int] 
+[Prj_ID] -- 服务合作审批项目ID
+[Prj_Name] --结算项目名称
+[Prj_Type] -- 项目类型:3,工程结算;4,维护结算;5,现场结算;6,预付款;8,专业结算;
+[Agent_ID] -- 代理商ID
+[Agent_Name] -- 代理商名称
+[Special_Desc] -- 特殊事项说明
+[IS_Document_Check] -- 是否工程文档检查
+[Apply_Remark] -- 申请备注
+[DocCheckResult] -- 工程文档检查结果
+[Doc_Check_Opinion] -- 工程文档检查意见
+[TotalScorePrj] -- 工程质量检查得分
+[TotalScore800] -- 客户满意度调查得分
+[SynthesizedScorePrj] -- 工程综合得分
+[Eng_Quality_Modulus] -- 工程质量系数
+[Other_Deduct_Money] -- 有无其它扣款
+[Pay_Money_Explanation] -- 支付金额及说明
+[Final_Pay_Price] -- 最终核实支付价格
+[Approval_Document_Accept] -- 审批资料签收
+[Settlement_Money_Amount] -- 结算金额
+[Maintain_Date_Start]  -- 维护周期开始
+[Maintain_Date_End]  -- 维护周期结束  
+[Payment_Count] -- 付款次数
+[Maintain_Synthesized_Score] -- 维护质量综合得分
+[Maintain_Modulus] -- 维护系数
+[Examine_Remark] -- 考核备注
+[Deduct_Amount] -- 扣款金额
+[Deduct_Reason] -- 扣款原因
+[Compensate_Amount] -- 补偿金额
+[Service_Area] -- 服务地点
+[Service_Content] -- 服务内容
+[Disobey_Item] -- 有无服务违规项
+[IS_Require] -- 是否满足业务要求
+[IS_All_Document] -- 交付文档是否齐全
+[Prj_Code] -- 项目编码
+[Prj_Status] -- 项目状态 92 29 15 72 66 32 26 63 49 67 27 21 64 47 93 18 84 65 19 73 25 13 22 33 16 48 20 80 68 28 57 14 51
+[CreatedDate] -- 项目创建时间
+[CreatedName] --创建人
+[HandleStatus] -- 商务处理状态
+[remark] 
+[ExpensesCreateDate] -- 费用报销单填单日期
+[PaperStatus] -- 纸件状态
+[PayStatus] -- 付款状态
+[PayAmount] -- 付款金额
+[LinkMan] -- 联系人
+[Tel] -- 联系人电话
+[Email] -- 联系人邮箱
+[DelStatus] -- 删除状态
+[RepealRemark] -- 撤消备注
+[cnmContractAmount] -- 支付金额
+[cndPayDate] -- 支付时间
+[DocumenRemark] -- 材料审核意见
+[IS_Operation] -- 是否是运营商项目:0,不是;1,是
+[ContractAount] -- 对应服务合同金额
+[Channels_examine_Approval] -- 渠支管考核审批意见
+[FPNumber] --发票号码
+[FPAmount] --发票金额
+[FPDate] --发票日期
+[KDNumber] --快递单号
+[IsHT] --是否邮寄合同
+[IsTable] --是否邮寄付款申请表
+[CLMark] --材料说明
+[SpecialAccounts] --是否特殊结算
+[SpecialAccountsSP] --特殊结算说明
+[Score] --考核分数
+[IsBack] --是否回访
+[CustomScore] --客户满意度
+[EngineerRemark] --对交付责任人评价
+[IsChangContract] --是否邮寄合同变更协议
+[ContractAlterPrice] --变更后合同金额
+[BackRemark] --回访说明
+[GaiDanMoneyAmount] --改单金额
+[ServiceBack_Approval] --回访问题记录
+[PNo] --批次号
+[PNoTime] --批次号创建时间
+[Agent_Name_Change]  --服务商修改名称
+[Customer_contact] --客户联系人
+[Contact_phone] --客户联系人电话
+[IsChangeContract]  --IsChangeContract
+
+审批意见表
+[dbo].[scdp_Project_VerifyOpinion]
+[ID] [int] 
+[Prj_ID] -- 项目ID
+[Prj_Type] -- 项目类型:1,审批流程；3,工程类结算;4,维护类结算;5,现场类结算;6,预付款;8,专业类结算
+[Channels_Approval] -- 渠支管审批意见
+[Channels_Chief_Approval] -- 渠支管主管审批意见
+[BigProject_Opinion] -- 评审意见
+[Benefit_Approval] -- 受益部门权签
+[Commerce_Approval] -- 服务商务处审批意见
+[financial_Approval]  -- 财务审批意见
+[Branch_Approval] -- 办事处服务经理审批意见
+[Channels_examine_Approval] -- 渠支管考核审批意见
+[Commerce_Follow] -- 服务商务处跟踪审批意见
+[BranchBoss_Approval]  --办事处主任审批意见
+[ServeChannel_Approval] --服务渠道管理部审批意见
+[SHYJ] --支付材料在途审批意见
+[ServiceQuality_Approval] --服务质量管理部审批意见
+[Agent_Approval]
+[ProfitDep_Approval] --受益部门主管审批意见
+[ServiceBack_Approval]  --客户满意度回访
+
+项目附件
+[dbo].[scdp_ProjectFile]
+[ID] [int] 
+[Prj_ID] -- 项目ID
+[Prj_Type] -- 项目类型:1,为审批流程；2,为结算流程
+[File_Path] -- 附件路径
+[CreateName] --创建人
+[Date_Created] -- 创建日期
+[Date_Delete] -- 删除日期
+[IS_Deleted] -- 删除标识:0,为已删除;1,为未删除
+[File_Content] -- 附件内容
+[File_Type] -- 附件类型
+[File_Name] -- 附件名称
+[ProjectCode] --关联的pms项目编号
+[ActID] --环节
+[IsDel] --是否删除 1，未删除；0，删除
+[DocType] --文档类型 3，合同附件 2，其他，1，默认
+
+转包服务明细表
+[dbo].[SCDP_ProList]
+[ID] [int] 
+[Prj_Id] --转包项目ID
+[Prj_Code] --转包PMS项目编号
+[Prj_Name] --项目名称
+[Service_Contract_ID] --服务合同号
+[BOM] --BOM编号
+[Description] --BOM描述
+[Count] --销售数据
+[Prices] --单价
+[Discount] --折扣
+[BuyCount] --转包数量
+[DelStatus] --sip BOM唯一标识
+[ZGPrice] --转包价格
+[GZID] --转包规则
+[GZID_Service] 
+[OverTime] --预计完工时间
+[SecondOrderID] 
+[CustomerName] 
+[Industry] 
+[CRMNo] 
+[CRMName] 
+[ServiceType]
+[new_serverserviceactivity] 
+[new_serverserviceactivityid] 
+[ProductLineSN] --产品线
+[ServiceChargeToName]  --受益部门
+[ZGPriceOld] --原始转包价格
+[Rate] --服务商折扣系数
+
+角色权限表
+CREATE TABLE [dbo].[scdp_Role]
+[Role_ID] 
+[Role_Name] -- 角色名称
+[RightMask1] -- 系统基础权限
+[RightMask2] -- 业务基础权限
+[RightMask3] -- 扩展权限
+
+维护类BOM表 -- 数据库后台维护
+[dbo].[Scdp_ServiceBom]
+[ID] 
+[Bom] --BOM编号
+[BomName] --BOM描述
+
+所有bom信息表
+[dbo].[Scdp_ServiceBomAll] -- 数据库后台维护
+[ID] 
+[Bom] --BOM编号
+[BomName] --BOM描述
+[IsPriorPay]  --是否预付款
+[PriorPayCount]  --预付款占比
+[BomType]  --BOM类型 
+[IsWxXy]  --自动派单类型
+[PriceTypeID]  --默认转包规则
+[BOMLevel] --BOM一级分类
+
+结算服务明细表
+CREATE TABLE [dbo].[SCDP_SettleList]
+[ID] 
+[Settle_ID]  结算ID
+[Prj_Code] --PMS项目编号
+[Prj_Name] --项目名称
+[Service_Contract_ID] --服务合同号
+[BOM] BOM编号
+[Description] --BOM描述
+[Count] --销售数据
+[Prices] --单价
+[Discount] --折扣
+[BuyCount] --转包数量
+[DelStatus] --服务BOM唯一标识
+[ZGPrice] --转包价格
+[GZID] --转包规则
+[OverTime] --预计完工时间
+[SettleCount] --结算数量
+[SettlePrice] --结算价格
+[ProductLineSN] --产品线
+[ServiceChargeToName] --受益部门
+
+流程任务表
+[dbo].[scdp_Task]
+[ID] 
+[Process_ID] -- 流程序号 0,撤销流程;1,转包流程;2,短名单流程;3,工程类结算;4,维护类结算;5,现场类结算&专业类结算;6,预付款结算;
+[Activity_ID] -- 流程活动序号
+[Pre_Activity_ID] -- 前流程活动序号
+[Activity_Status] -- 流程状态。0,未处理;1,处理中;2,已关闭
+[Emp_Guid] -- 用户ID
+[Cc_Emp_Guid] -- 抄送用户ID
+[Prj_ID] -- 项目ID
+[Prj_Type] -- 项目类型:0,撤销流程;1,转包流程;2,短名单流程;3,工程类结算;4,维护类结算;5,现场类结算;6,预付款结算;8,专业类结算
+[DateCreated] -- 任务创建时间
+[Date_Accepted] -- 活动接受时间
+[Emp_Name] -- 用户名
+[CC_Emp_Name] -- 抄送用户名
+[Next_Emp_Guid] -- 用户ID
+[Next_Emp_Name] -- 用户名
+[oldID] 
+
+自动运行程序时间控制表
+[dbo].[scdp_TimerData]
+[ID] [int] 
+[TaskName] --任务名称
+[TimerMode] --执行方式 4，每天执行一次； 3，每星期执行一次； 2，每月执行一次； 1，每年执行一次
+[TimerData] --第一次执行时间
+[LastRunTime] --最后一次执行时间
+
+付款信息 -- cdip付款后数据会自动同步过来
+[dbo].[tbRewardServicePayDetail]
+tbRewardServicePayDetailID
+cnvcForeignContractNo --转包合同号
+cnvcAgentName --服务商名称
+cnvcProjectName  --项目名称
+cnmContractContent  --合同内容
+cnmContractAmount  --合同金额
+cnmPayAmount  --支付金额
+cnvcPayContent  --支付内容
+cndPayDate  --支付时间
+cnvcAttribute1
+cnvcAttribute2
+cnvcAttribute3
+cndCreateDate  --创建时间
+cndtLastUpdateDate  --更新时间
+crUserID
+tbRewardServicePaymentID
+cnvcRowID
+cnvcSubmitStatus  --支付状态
+cndSubmitFinaDate
+cnvcRewardType
+cnvcDepartmentID
+cnvcDepartmentName
