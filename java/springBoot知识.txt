@@ -1,4 +1,4 @@
-springboot 整合许多第三方依赖，并且做了默认配置,内嵌了serlet（tomcat）容器
+springboot 整合许多第三方依赖，并且做了默认配置,不用我们自己手动的去写一堆xml配置然后进行配置，内嵌了serlet（tomcat）容器
 
 创建项目
    http://start.spring.io/

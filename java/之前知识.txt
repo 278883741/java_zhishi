@@ -1,0 +1,11 @@
+1.用maven创建项目
+  创建项目选择maven，选择apache下的webapp，然后指定我们自己的maven，再main文件夹下创建java文件夹，右键make directory as source root
+  将web.xml版本变成3.1 -- file -> project structure -> moudles -> 添加web.xml(3.1，这个好像是创建springMvc那个web)到src\main\webapp\WEB-INF目录下
+  project structure -> artifacts -> + web application : Exploded -> from module
+  配置tomcat启动，Deploment后面的路径要配上项目名称
+用Intellij IDEA 创建第一个Spring MVC项目 - https://blog.csdn.net/qq_35164169/article/details/79988173
+
+@RequestMapping(value = "/save",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+@ResponseBody
+
+@RequestParam -- 用于request参数名与变量名不一致
