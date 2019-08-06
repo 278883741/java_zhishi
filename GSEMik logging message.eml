@@ -1,0 +1,47 @@
+Received: from HZHUB01-EX.srv.huawei-3com.com (10.63.16.180) by
+ HZCHPHUB01-EX.srv.huawei-3com.com (10.8.1.28) with Microsoft SMTP Server
+ (TLS) id 14.3.408.0; Mon, 5 Aug 2019 15:48:50 +0800
+Received: from CHPWEB01-TS (172.25.20.46) by smtp.h3c.com (10.63.16.180) with
+ Microsoft SMTP Server id 14.3.408.0; Mon, 5 Aug 2019 15:48:45 +0800
+From: <gsemik@h3c.com>
+To: <yufeng.zhang@h3c.com>
+Date: Mon, 5 Aug 2019 15:48:45 +0800
+Subject: GSEMik logging message
+Message-ID: <3b68c6ba-6e39-41de-97e1-f969c25d05bf@HZHUB01-EX.srv.huawei-3com.com>
+Return-Path: gsemik@h3c.com
+X-MS-Exchange-Organization-SCL: -1
+X-MS-Exchange-Organization-AuthSource: HZHUB01-EX.srv.huawei-3com.com
+X-MS-Exchange-Organization-AuthAs: Anonymous
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+
+2019-08-05 15:48:13,794 [1] INFO  Requester [(null)] - Beginning New trip, Mode:1
+
+
+
+2019-08-05 15:48:13,934 [1] INFO  Requester [PutNewCallsToGSEM] - Sending new calls to GSEM Server
+
+
+
+2019-08-05 15:48:45,562 [1] ERROR Requester [PutNewCallsToGSEM] - error,System.Data.SqlClient.SqlException (0x80131904): Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding. ---> System.ComponentModel.Win32Exception (0x80004005): The wait operation timed out
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TrySetMetaData(_SqlMetaDataSet metaData, Boolean moreInfo)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader()
+   at GSEMikWorker.Requester.PutNewCallsToGSEM(String AgentKey) in D:\working\GSEMik\Service\GSSEMikWorker\Requester.vb:line 195
+ClientConnectionId:f4dd61ad-ecf0-4abc-8034-b902b9c8f499
+
+
+
