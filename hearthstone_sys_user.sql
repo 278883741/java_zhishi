@@ -1,2 +1,0 @@
-INSERT INTO hearthstone.sys_user (id, username, password, delete_status, operator_no, headImgUrl, create_time, update_time) VALUES (1, 'yushu', '4QrcOUm6Wau+VuBX8g+IPg==', false, 'yushu', '/1/face/752.png', '2019-05-08 14:27:05', '2019-05-08 14:28:27');
-INSERT INTO hearthstone.sys_user (id, username, password, delete_status, operator_no, headImgUrl, create_time, update_time) VALUES (2, 'pang', '4QrcOUm6Wau+VuBX8g+IPg==', false, 'yushu', '/2/face/25.png', '2019-05-08 14:27:16', '2019-05-08 14:27:16');

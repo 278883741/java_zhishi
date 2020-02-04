@@ -1,2 +1,0 @@
-INSERT INTO hearthstone.sys_role (id, role_name, operator_no, create_time, update_time, delete_status, description) VALUES (1, 'admin', 'yushu', '2019-05-08 01:59:37', '2019-05-08 01:59:39', false, null);
-INSERT INTO hearthstone.sys_role (id, role_name, operator_no, create_time, update_time, delete_status, description) VALUES (2, 'user', 'yushu', '2019-05-08 01:59:57', '2019-05-08 01:59:58', false, null);

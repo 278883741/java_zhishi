@@ -1,185 +1,44 @@
-create table card
-(
-	Id int auto_increment
-		primary key,
-	param_name varchar(128) null,
-	EName varchar(255) default 'NULL' null,
-	Type int not null comment '卡牌类型,关联表HS_CardType',
-	Occupation int not null comment '职业,关联表HS_CardOccupation',
-	Rarity int not null comment '稀有度,关联表HS_CardRarity',
-	Cost int not null,
-	Atk int not null,
-	Health int not null,
-	Kind int not null comment '卡牌种类，关联表Card_Kind',
-	param_set int null,
-	Description varchar(255) default '''''' not null,
-	Dust_Decompose int default 0 null comment '分解获得的尘',
-	Dust_Decompose_Golden int default 0 null comment '金色分解获得的尘',
-	Dust_Synthesis int default 0 null comment '合成需要的尘',
-	Dust_Synthesis_Golden int default 0 null comment '金色合成需要的尘',
-	IsShow bit default b'0' null,
-	CreateDate datetime default CURRENT_TIMESTAMP null,
-	img_path varchar(255) null comment '图片链接地址'
-);
+<!--<dependency>-->
+			<!--<groupId>org.activiti</groupId>-->
+			<!--<artifactId>activiti-engine</artifactId>-->
+			<!--<version>7.0.0.Beta1</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.activiti</groupId>-->
+			<!--<artifactId>activiti-spring</artifactId>-->
+			<!--<version>7.0.0.Beta1</version>-->
+		<!--</dependency>-->
 
---------------------------------------------------------------------------------------
-create table card_kind
-(
-	Id int auto_increment
-		primary key,
-	Name varchar(255) null comment ''''''
-)
-comment '卡牌种类';
+		<!-- activiti模型 -->
+		<!--<dependency>-->
+			<!--<groupId>org.activiti</groupId>-->
+			<!--<artifactId>activiti-bpmn-model</artifactId>-->
+			<!--<version>7.0.0.Beta1</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.activiti</groupId>-->
+			<!--<artifactId>activiti-bpmn-converter</artifactId>-->
+			<!--<version>7.0.0.Beta1</version>-->
+		<!--</dependency>-->
 
---------------------------------------------------------------------------------------
-create table card_occupation
-(
-	Id int auto_increment
-		primary key,
-	Name varchar(255) default '''''' null
-)
-comment '职业';
-
---------------------------------------------------------------------------------------
-create table card_property
-(
-	id int auto_increment
-		primary key,
-	card_id int not null comment '角色ID',
-	Taunt bit default b'0' null comment '嘲讽',
-	Freeze bit default b'0' null comment '冻结',
-	Windfury bit default b'0' null comment '风怒',
-	Battlecry bit default b'0' null comment '战吼',
-	Stealth bit default b'0' null comment '潜行',
-	Combo bit default b'0' null comment '连击',
-	Aura bit default b'0' null comment '光环',
-	Charge bit default b'0' null comment '冲锋',
-	Grant_charge bit default b'0' null comment '过载',
-	Spellpower bit default b'0' null comment '法强',
-	Silence bit default b'0' null comment '沉默',
-	Enrage bit default b'0' null comment '激怒',
-	Divine_shield bit default b'0' null comment '圣盾',
-	Deathrattle bit default b'0' null comment '亡语',
-	Secret bit default b'0' null comment '奥秘',
-	Inspire bit default b'0' null comment '激励',
-	Mission bit default b'0' null comment '任务',
-	Lifesteal bit default b'0' null comment '吸血',
-	operator varchar(30) null comment '创建人',
-	create_time datetime null comment '创建时间'
-);
-
---------------------------------------------------------------------------------------
-create table card_rarity
-(
-	Id int auto_increment
-		primary key,
-	Name varchar(255) default '''''' null
-)
-comment '卡牌稀有度';
-
---------------------------------------------------------------------------------------
-create table card_set
-(
-	Id int auto_increment
-		primary key,
-	Name varchar(255) default '''''' null
-)
-comment '卡牌版本';
-
---------------------------------------------------------------------------------------
-create table card_type
-(
-	Id int auto_increment
-		primary key,
-	Name varchar(255) default '''''' null
-)
-comment '卡牌类型';
-
---------------------------------------------------------------------------------------
-create table sys_permission
-(
-	id int(20) auto_increment
-		primary key,
-	permission_name varchar(150) null comment '权限名称',
-	permission_url varchar(150) default '' not null comment '权限路径',
-	operator varchar(30) null comment '操作人',
-	created datetime null comment '创建时间',
-	deleted datetime null comment '删除时间/失效时间',
-	delete_status bit default b'0' null comment '删除状态0为未删除/可用，1为已删除/不可用',
-	level int null comment '权限级别',
-	sort int null comment '排序值',
-	parent_id int null comment '父级id'
-);
-
---------------------------------------------------------------------------------------
-create table sys_role
-(
-	id int(32) auto_increment
-		primary key,
-	role_name varchar(30) not null comment '角色名称',
-	operator_no varchar(30) null comment '创建人/操作人',
-	create_time datetime null comment '创建时间',
-	update_time datetime null comment '更新时间',
-	delete_status bit default b'0' null comment '逻辑删除状态0为未删除/可用，1为已删除/不可用',
-	description varchar(50) null comment '角色描述'
-);
-
---------------------------------------------------------------------------------------
-create table sys_role_permission
-(
-	id int(20) auto_increment
-		primary key,
-	role_id int(20) not null comment '角色ID',
-	permission_id int(20) not null comment '权限ID',
-	operator varchar(30) null comment '创建人',
-	created datetime null comment '创建时间',
-	deleted datetime null comment '删除时间/失效时间',
-	delete_status bit default b'0' null comment '删除状态0为未删除/可用，1为已删除/不可用'
-);
-
-create index permissionid
-	on sys_role_permission (permission_id);
-
-create index role_id
-	on sys_role_permission (role_id);
-
---------------------------------------------------------------------------------------
-create table sys_user
-(
-	id int auto_increment
-		primary key,
-	username varchar(20) null comment '用户名',
-	password varchar(200) null comment '密码',
-	delete_status bit null comment '逻辑删除状态',
-	operator_no varchar(20) null comment '操作人',
-	headImgUrl varchar(20) null,
-	create_time datetime null comment '创建时间',
-	update_time datetime null comment '更新时间',
-	constraint sys_user_username_uindex
-		unique (username)
-)
-comment '后台管理用户表';
-
---------------------------------------------------------------------------------------
-create table sys_user_role
-(
-	id int(20) auto_increment
-		primary key,
-	user_id int(20) not null comment '用户ID',
-	role_id int(20) not null comment '角色ID',
-	operator varchar(30) null comment '操作人/创建人',
-	created datetime null comment '创建时间',
-	deleted datetime null comment '删除时间/失效时间',
-	delete_status bit default b'0' null comment '逻辑删除状态0为未删除/可用，1为已删除/不可用',
-	oaid varchar(20) default '' null comment 'oa工号'
-);
-
-create index oaid
-	on sys_user_role (oaid);
-
-create index role_id
-	on sys_user_role (role_id);
-
-create index user_id
-	on sys_user_role (user_id);
-开启缓存
+		<!-- 转换json -->
+		<!--<dependency>-->
+			<!--<groupId>org.activiti</groupId>-->
+			<!--<artifactId>activiti-json-converter</artifactId>-->
+			<!--<version>7.0.0.Beta1</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.activiti</groupId>-->
+			<!--<artifactId>activiti-bpmn-layout</artifactId>-->
+			<!--<version>7.0.0.Beta1</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.activiti.cloud</groupId>-->
+			<!--<artifactId>activiti-cloud-services-api</artifactId>-->
+			<!--<version>7.0.0.Beta1</version>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>aspectj</groupId>-->
+			<!--<artifactId>aspectjweaver</artifactId>-->
+			<!--<version>1.5.4</version>-->
+		<!--</dependency>-->
