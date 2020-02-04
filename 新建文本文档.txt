@@ -1,44 +1,21 @@
-<!--<dependency>-->
-			<!--<groupId>org.activiti</groupId>-->
-			<!--<artifactId>activiti-engine</artifactId>-->
-			<!--<version>7.0.0.Beta1</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>org.activiti</groupId>-->
-			<!--<artifactId>activiti-spring</artifactId>-->
-			<!--<version>7.0.0.Beta1</version>-->
-		<!--</dependency>-->
 
-		<!-- activiti模型 -->
-		<!--<dependency>-->
-			<!--<groupId>org.activiti</groupId>-->
-			<!--<artifactId>activiti-bpmn-model</artifactId>-->
-			<!--<version>7.0.0.Beta1</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>org.activiti</groupId>-->
-			<!--<artifactId>activiti-bpmn-converter</artifactId>-->
-			<!--<version>7.0.0.Beta1</version>-->
-		<!--</dependency>-->
+SELECT * from act_ge_bytearray;
+SELECT * from act_re_procdef;
+SELECT * from act_re_deployment;
 
-		<!-- 转换json -->
-		<!--<dependency>-->
-			<!--<groupId>org.activiti</groupId>-->
-			<!--<artifactId>activiti-json-converter</artifactId>-->
-			<!--<version>7.0.0.Beta1</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>org.activiti</groupId>-->
-			<!--<artifactId>activiti-bpmn-layout</artifactId>-->
-			<!--<version>7.0.0.Beta1</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>org.activiti.cloud</groupId>-->
-			<!--<artifactId>activiti-cloud-services-api</artifactId>-->
-			<!--<version>7.0.0.Beta1</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>aspectj</groupId>-->
-			<!--<artifactId>aspectjweaver</artifactId>-->
-			<!--<version>1.5.4</version>-->
-		<!--</dependency>-->
+SELECT * from act_hi_procinst; -- 流程实例
+SELECT * from act_hi_actinst; -- 已完成的活动信息 end_time
+SELECT * from act_hi_identitylink; -- 参与者信息？
+SELECT * from act_hi_taskinst; -- 任务实例？
+
+SELECT * from act_ru_execution; -- 执行表？
+SELECT * from act_ru_identitylink; -- 参与者信息？
+SELECT * from act_ru_task; -- 任务？
+
+
+
+
+
+
+CREATE DATABASE activiti;
+drop DATABASE activiti
