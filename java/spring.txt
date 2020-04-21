@@ -1,0 +1,68 @@
+spring是一个开源的IOC和AOP容器框架，可以集成其他框架
+
+1.org.springframework.beans.factory.BeanFactory 
+  -- 这个是spring容器的顶层接口，提供了容器最基本的功能
+2.org.springframework.context.ApplicationContext 
+  -- 继承了BeanFactory接口，并且在其上进行了扩展，增加了很多功能，比如AOP、国际化、事件支持等等。。
+3.org.springframework.context.support.ClassPathXmlApplicationContext 
+  -- 这个类实现了ApplicationContext接口，这个容器类可以从classpath中加载bean xml配置文件，然后创建xml中配置的bean对象
+4.org.springframework.context.annotation.AnnotationConfigApplicationContext
+  -- 这个类实现了ApplicationContext接口，bean的定义支持xml的方式和注解的方式，当我们使用注解的方式定义bean的时候，就需要用到这个容器来装载了
+
+引用 spring-core、spring-context、spring-beans 包
+
+bean.xml -- <bean id="helloWorld" class="com.javacode2018.lesson001.demo1.HelloWorld"/>
+
+public class Client {
+    public static void main(String[] args) {
+        String beanXml = "classpath:/com/javacode2018/lesson001/demo1/beans.xml";
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(beanXml);
+        HelloWorld helloWorld = context.getBean("helloWorld", HelloWorld.class);
+        helloWorld.say();
+    }
+}
+
+Spring容器内部创建bean实例对象常见的有4种方式：
+1.调用类的构造方法获取对应的bean实例，是使用最多的方式，这种方式只需要在xml bean元素中指定class属性，spring容器内部会自动调用该类型的构造方法来创建bean对象，将其放在容器中以供使用
+2.通过静态工厂方法创建bean对象
+<bean id="bean名称" name="" class="静态工厂完整类名" factory-method="静态工厂的方法"> -- 返回需要的类型对象
+    <constructor-arg index="0" value="bean的值" ref="引用的bean名称" /> -- 构造函数第0个参数
+    <constructor-arg index="1" value="bean的值" ref="引用的bean名称" />
+    <constructor-arg index="2" value="bean的值" ref="引用的bean名称" />
+</bean>
+
+bean的生命周期
+<bean id="singletonBean" class="com.javacode2018.lesson001.demo4.BeanScopeModel" scope="singleton">
+    <constructor-arg index="0" value="singleton"/>
+</bean> -- 实例在容器启动过程中就创建好了
+prototype -- 每次获取都会重新创建一个bean实例对象，每次获取的时候才会去调用构造方法创建bean实例
+
+springmvc中controller默认是单例的
+
+@Autowired(required=false) -- 如果不配置Bean会抛异常，这样就不错了，认为这两个属性为null
+@Qualifier("bmwCar") 如果一个借口有多个实现类，这样可以指定实现类
+
+@Configuration把一个类作为一个IoC容器，它的某个方法头上如果注册了@Bean，就会作为这个Spring容器中的Bean。
+@Scope注解 作用域
+@Lazy(true) 表示延迟初始化
+
+@Primary：自动装配时当出现多个Bean候选者时，被注解为@Primary的Bean将作为首选者，否则将抛出异常
+@Async异步方法调用
+
+-- 代理知识
+https://mp.weixin.qq.com/s?__biz=MzA5MTkxMDQ4MQ%3D%3D&chksm=88621efcbf1597eab943b064147b8fb8fd3dfbac0dc03f41d15d477ef94b60d4e8f78c66b262&idx=1&lang=zh_CN&mid=2648934082&scene=21&sn=c919886400135a0152da23eaa1f276c7&token=1042984313#wechat_redirect
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

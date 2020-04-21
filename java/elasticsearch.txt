@@ -7,3 +7,25 @@
 字段（Field）：文档的一个Key/Value对；
 词（Term）：表示文本中的一个单词；
 标记（Token）：表示在字段中出现的词，由该词的文本、偏移量（开始和结束）以及类型组成；
+
+PUT /movies/movie/6
+{
+    "title": "The Assassination of Jesse James by the Coward Robert Ford",
+    "director": "Andrew Dominik",
+    "year": 2007,
+    "genres": ["Biography", "Crime", "Drama"]
+}
+
+GET /movies/movie/6
+
+DELETE /movies/movie/6
+
+POST /movies/movie/_search
+{
+    "query": {
+        "query_string": {
+            "query": "kill",
+            "fields": ["director"]
+        }
+    }
+}
