@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/testm1581496718911" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/testm1581496718911" id="m1581496718911" name="">
+  <process id="settlement" isExecutable="true" isClosed="false" processType="None">
+    <userTask id="_3" name="SP Submit Settlement Request" activiti:assignee="${assignee}"></userTask>
+    <userTask id="_4" name="Service Manager Approve" activiti:assignee="${assignee}"></userTask>
+    <exclusiveGateway id="_5" name="ExclusiveGateway"></exclusiveGateway>
+    <userTask id="_6" name="Service Quality Survey" activiti:assignee="${assignee}"></userTask>
+    <userTask id="_7" name="Channel Specialist Approve" activiti:assignee="${assignee}"></userTask>
+    <exclusiveGateway id="_8" name="ExclusiveGateway"></exclusiveGateway>
+    <userTask id="_9" name="Service Manager Confirm" activiti:assignee="${assignee}"></userTask>
+    <userTask id="_10" name="TS-INTL Director Approve" activiti:assignee="${assignee}"></userTask>
+    <userTask id="_11" name="TS Service Chanel Director Approve" activiti:assignee="${assignee}"></userTask>
+    <userTask id="_12" name="Service Commercial Department Approve" activiti:assignee="${assignee}"></userTask>
+    <userTask id="_13" name="Financial Department Submit Payment Results" activiti:assignee="${assignee}"></userTask>
+    <endEvent id="_14" name="End"></endEvent>
+    <sequenceFlow id="_16" sourceRef="_3" targetRef="_4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_17" sourceRef="_4" targetRef="_5">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_18" sourceRef="_5" targetRef="_6">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isSatisfaction==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_19" sourceRef="_5" targetRef="_7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isSatisfaction==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_20" sourceRef="_6" targetRef="_7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_21" sourceRef="_7" targetRef="_8">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_22" sourceRef="_8" targetRef="_9">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isSpecialSettlement==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_23" sourceRef="_9" targetRef="_10">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_24" sourceRef="_10" targetRef="_11">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_25" sourceRef="_8" targetRef="_12">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isSpecialSettlement==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_26" sourceRef="_11" targetRef="_12">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_28" sourceRef="_13" targetRef="_14">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==1}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="_29" name="SP Submit Settlement Materials" activiti:assignee="${assignee}"></userTask>
+    <sequenceFlow id="_30" sourceRef="_12" targetRef="_29">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_31" sourceRef="_29" targetRef="_13">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_32" sourceRef="_4" targetRef="_3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_35" sourceRef="_7" targetRef="_3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_36" sourceRef="_12" targetRef="_3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_37" sourceRef="_9" targetRef="_7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_38" sourceRef="_10" targetRef="_7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==0}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_39" sourceRef="_11" targetRef="_7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${auditResult==0}]]></conditionExpression>
+    </sequenceFlow>
+    <startEvent id="_2" name="Start"></startEvent>
+    <sequenceFlow id="_15" sourceRef="_2" targetRef="_3"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_settlement">
+    <bpmndi:BPMNPlane bpmnElement="settlement" id="BPMNPlane_settlement">
+      <bpmndi:BPMNShape bpmnElement="_3" id="BPMNShape__3">
+        <omgdc:Bounds height="97.0" width="106.0" x="73.0" y="174.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" id="BPMNShape__4">
+        <omgdc:Bounds height="97.0" width="121.0" x="221.0" y="174.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" id="BPMNShape__5">
+        <omgdc:Bounds height="40.0" width="40.0" x="371.0" y="202.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" id="BPMNShape__6">
+        <omgdc:Bounds height="86.0" width="105.0" x="421.0" y="105.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" id="BPMNShape__7">
+        <omgdc:Bounds height="91.0" width="105.0" x="511.0" y="259.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" id="BPMNShape__8">
+        <omgdc:Bounds height="40.0" width="40.0" x="641.0" y="284.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_9" id="BPMNShape__9">
+        <omgdc:Bounds height="93.0" width="105.0" x="701.0" y="360.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_10" id="BPMNShape__10">
+        <omgdc:Bounds height="93.0" width="113.0" x="841.0" y="360.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_11" id="BPMNShape__11">
+        <omgdc:Bounds height="100.0" width="111.0" x="986.0" y="357.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_12" id="BPMNShape__12">
+        <omgdc:Bounds height="107.0" width="121.0" x="981.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_13" id="BPMNShape__13">
+        <omgdc:Bounds height="109.0" width="137.0" x="1291.0" y="119.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_14" id="BPMNShape__14">
+        <omgdc:Bounds height="35.0" width="35.0" x="1461.0" y="156.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_29" id="BPMNShape__29">
+        <omgdc:Bounds height="110.0" width="123.0" x="1141.0" y="119.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" id="BPMNShape__2">
+        <omgdc:Bounds height="35.0" width="35.0" x="1.0" y="205.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_16" id="BPMNEdge__16">
+        <omgdi:waypoint x="179.0" y="222.0"></omgdi:waypoint>
+        <omgdi:waypoint x="221.0" y="222.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_17" id="BPMNEdge__17">
+        <omgdi:waypoint x="342.0" y="222.0"></omgdi:waypoint>
+        <omgdi:waypoint x="371.0" y="222.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_18" id="BPMNEdge__18">
+        <omgdi:waypoint x="391.0" y="202.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="148.0"></omgdi:waypoint>
+        <omgdi:waypoint x="421.0" y="148.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_19" id="BPMNEdge__19">
+        <omgdi:waypoint x="411.0" y="222.0"></omgdi:waypoint>
+        <omgdi:waypoint x="564.0" y="222.0"></omgdi:waypoint>
+        <omgdi:waypoint x="563.0" y="259.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_20" id="BPMNEdge__20">
+        <omgdi:waypoint x="526.0" y="148.0"></omgdi:waypoint>
+        <omgdi:waypoint x="563.0" y="148.0"></omgdi:waypoint>
+        <omgdi:waypoint x="563.0" y="259.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_21" id="BPMNEdge__21">
+        <omgdi:waypoint x="616.0" y="304.0"></omgdi:waypoint>
+        <omgdi:waypoint x="641.0" y="304.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_22" id="BPMNEdge__22">
+        <omgdi:waypoint x="661.0" y="324.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="406.0"></omgdi:waypoint>
+        <omgdi:waypoint x="701.0" y="406.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_23" id="BPMNEdge__23">
+        <omgdi:waypoint x="806.0" y="406.0"></omgdi:waypoint>
+        <omgdi:waypoint x="841.0" y="406.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_24" id="BPMNEdge__24">
+        <omgdi:waypoint x="954.0" y="406.0"></omgdi:waypoint>
+        <omgdi:waypoint x="986.0" y="407.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_25" id="BPMNEdge__25">
+        <omgdi:waypoint x="661.0" y="284.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="173.0"></omgdi:waypoint>
+        <omgdi:waypoint x="981.0" y="173.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_26" id="BPMNEdge__26">
+        <omgdi:waypoint x="1041.0" y="357.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1041.0" y="227.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_28" id="BPMNEdge__28">
+        <omgdi:waypoint x="1428.0" y="173.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1461.0" y="173.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_30" id="BPMNEdge__30">
+        <omgdi:waypoint x="1102.0" y="173.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1141.0" y="174.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_31" id="BPMNEdge__31">
+        <omgdi:waypoint x="1264.0" y="174.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1291.0" y="173.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_32" id="BPMNEdge__32">
+        <omgdi:waypoint x="281.0" y="174.0"></omgdi:waypoint>
+        <omgdi:waypoint x="280.0" y="140.0"></omgdi:waypoint>
+        <omgdi:waypoint x="125.0" y="140.0"></omgdi:waypoint>
+        <omgdi:waypoint x="126.0" y="174.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_35" id="BPMNEdge__35">
+        <omgdi:waypoint x="511.0" y="304.0"></omgdi:waypoint>
+        <omgdi:waypoint x="125.0" y="304.0"></omgdi:waypoint>
+        <omgdi:waypoint x="126.0" y="271.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_36" id="BPMNEdge__36">
+        <omgdi:waypoint x="1041.0" y="120.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1040.0" y="69.0"></omgdi:waypoint>
+        <omgdi:waypoint x="125.0" y="69.0"></omgdi:waypoint>
+        <omgdi:waypoint x="126.0" y="174.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_37" id="BPMNEdge__37">
+        <omgdi:waypoint x="753.0" y="453.0"></omgdi:waypoint>
+        <omgdi:waypoint x="752.0" y="477.0"></omgdi:waypoint>
+        <omgdi:waypoint x="563.0" y="477.0"></omgdi:waypoint>
+        <omgdi:waypoint x="563.0" y="350.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_38" id="BPMNEdge__38">
+        <omgdi:waypoint x="897.0" y="453.0"></omgdi:waypoint>
+        <omgdi:waypoint x="897.0" y="501.0"></omgdi:waypoint>
+        <omgdi:waypoint x="563.0" y="501.0"></omgdi:waypoint>
+        <omgdi:waypoint x="563.0" y="350.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_39" id="BPMNEdge__39">
+        <omgdi:waypoint x="1041.0" y="457.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1041.0" y="518.0"></omgdi:waypoint>
+        <omgdi:waypoint x="563.0" y="518.0"></omgdi:waypoint>
+        <omgdi:waypoint x="563.0" y="350.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_15" id="BPMNEdge__15">
+        <omgdi:waypoint x="36.0" y="222.0"></omgdi:waypoint>
+        <omgdi:waypoint x="73.0" y="222.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
