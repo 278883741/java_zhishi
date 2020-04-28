@@ -1,5 +1,144 @@
-mybatis�з�Ϊһ������Ͷ������档
+mybatis中分为一级缓存和二级缓存。
 
-һ��������SqlSession����Ļ��棬�ڲ������ݿ�ʱ��Ҫ���� sqlSession�����ڶ�������һ�����ݽṹ��HashMap�����ڴ洢�������ݣ���ͬ��sqlSession֮��Ļ�����������HashMap���ǻ��಻Ӱ��ġ�
+-- 一级缓存是SqlSession级别的缓存，每个SqlSession都有自己单独的一级缓存，多个SqlSession之间的一级缓存是相互隔离的，互不影响，mybatis中一级缓存是默认自动开启的。
 
-����������mapper����Ļ��棬���SqlSessionȥ����ͬһ��Mapper��sql��䣬���SqlSession���Թ��ö������棬���������ǿ�SqlSession�ġ�
+一级缓存工作原理：在同一个SqlSession中去多次去执行同样的查询，每次执行的时候会先到一级缓存中查找，如果缓存中有就直接返回，如果一级缓存中没有相关数据，mybatis就会去db中进行查找，
+然后将查找到的数据放入一级缓存中，第二次执行同样的查询的时候，会发现缓存中已经存在了，会直接返回。一级缓存的存储介质是内存，是用一个HashMap来存储数据的，所以访问速度是非常快的。
+
+-- 让一级缓存失效有3种方式：
+1.SqlSession中执行增、删、改操作，此时sqlsession会自动清理其内部的一级缓存
+2.调用SqlSession中的clearCache方法清理其内部的一级缓存
+3.设置Mapper xml中select元素的flushCache属性值为true，那么执行查询的时候会先清空一级缓存中的所有数据，然后去db中获取数据
+
+-- 二级缓存是mapper级别的缓存，每个mapper xml有个namespace，二级缓存和namespace绑定的，每个namespace关联一个二级缓存，多个SqlSession可以共用二级缓存，二级缓存是跨SqlSession的。
+
+二级缓存默认是没有开启的，需要我们在mybatis全局配置文件中进行开启：
+<settings>
+    <!-- 开启二级缓存 -->
+    <setting name="cacheEnabled" value="true"/>
+</settings>
+
+上面配置好了以后，还需要在对应的mapper xml加上下面配置，表示这个mapper中的查询开启二级缓存：
+<cache/>
+
+-- 一二级缓存如果都开启的情况下，数据查询过程如下：
+
+当发起一个查询的时候，mybatis会先访问这个namespace对应的二级缓存，如果二级缓存中有数据则直接返回，否则继续向下查询一级缓存中是否有对应的数据，如果有则直接返回，否则继续向下
+访问db获取需要的数据，然后放在当前SqlSession对应的二级缓存中，并且在本地内存中的另外一个地方存储一份（这个地方我们就叫TransactionalCache）
+当SqlSession关闭的时候，也就是调用SqlSession的close方法的时候，此时会将TransactionalCache中的数据放到二级缓存中，并且会清空当前SqlSession一级缓存中的数据。
+
+-- 那么我们如何清空或者跳过二级缓存呢？3种方式如下：
+1.对应的mapper中执行增删改查会清空二级缓存中数据
+2.select元素的flushCache属性置为true，会先清空二级缓存中的数据，然后再去db中查询数据，然后将数据再放到二级缓存中
+3.select元素的useCache属性置为false，可以使这个查询跳过二级缓存，然后去查询数据
+
+SqlSessionFactoryBuilder
+SqlSessionFactory
+SqlSession
+我们通过jdbc操作数据库需要先获取一个Connection连接，然后拿着这个连接去对db进行操作，在mybatis中SqlSession就类似于jdbc中Connection连接对象，在mybatis中叫做Sql会话对象，
+一般我们一个db操作使用一个SqlSession对象，所以这个对象一般是方法级别的，方法结束之后，这个对象就销毁了，这个对象可以调用sqlSessionFactory.openSession的方法来进行获取。
+
+Mapper接口
+我们可以通过SqlSession直接调用mapper xml中的db操作，不过更简单的以及推荐的方式是使用Mapper接口，Mapper接口中的方法和mapper xml文件中的各种db操作建立了映射关系，
+Mapper接口需要通过SqlSession获取，传入Mapper接口对应的Class对象，然后会返回这个接口的实例，如：
+
+UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+
+Mapper接口的原理
+这个使用java中的动态代理实现的，mybatis启动的时候会加载全局配置文件mybatis-config.xml，然后解析这个文件中的mapper元素指定的UserMapper.xml，
+会根据UserMapper.xml的namespace的值创建这个接口的一个动态代理，使用java.lang.reflect.Proxy类中的newProxyInstance方法
+
+
+public class ProxyTest {
+    public static class UserMapperProxy implements InvocationHandler {
+        private SqlSession sqlSession;
+        private Class<?> mapperClass;
+ 
+        public UserMapperProxy(SqlSession sqlSession, Class<?> mapperClass) {
+            this.sqlSession = sqlSession;
+            this.mapperClass = mapperClass;
+        }
+ 
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            log.debug("invoke start");
+            String statement = mapperClass.getName() + "." + method.getName(); -- xml中的namespace,id
+            List<Object> result = sqlSession.selectList(statement);
+            log.debug("invoke end");
+            return result;
+        }
+    }
+}
+
+@Test
+public void test1() {
+    try (SqlSession sqlSession = this.sqlSessionFactory.openSession(true)) {
+        UserMapper userMapper = (UserMapper) Proxy.newProxyInstance(ProxyTest.class.getClassLoader(), new Class[]{UserMapper.class}, new UserMapperProxy(sqlSession, UserMapper.class));
+        log.info("{}", userMapper.getUserList());
+    }
+}
+
+UserMapper是没有实现类的，可以通过Proxy.newProxyInstance给UserMapper接口创建一个代理对象，当调用UserMapper接口的方法的时候，会调用到UserMapperProxy对象的invoke方法
+
+SqlSession sqlSession = this.sqlSessionFactory.openSession();
+try {
+    sqlSession.insert()
+    sqlSession.update()
+} finally {
+    //关闭SqlSession
+    sqlSession.close();
+}
+
+sql延迟加载
+<association property="userModel" fetchType="eager" select="com.javacode2018.chat05.demo5.mapper.UserMapper.getById1" column="user_Id"/>
+<collection property="orderDetailModelList" fetchType="lazy" select="com.javacode2018.chat05.demo5.mapper.OrderDetailMapper.getListByOrderId1" column="id"/>
+
+discriminator - 鉴别器
+switch case
+
+extends - resultType 继承
+
+-- sql拼接
+<where>
+    <if test="id!=null">
+    </if>
+</where>
+
+<update id="update1" parameterType="com.javacode2018.chat05.demo8.model.UserModel">
+    UPDATE t_user
+    <set>
+        <if test="name!=null">
+            name = #{name},
+        </if>
+        <if test="age!=null">
+            age = #{age},
+        </if>
+    </set>
+    <where>
+        <if test="id!=null">
+            AND id = #{id}
+        </if>
+    </where>
+</update> -- 将这部分sql前后的逗号给去掉并在前面加上set
+
+<select id="getByIds" parameterType="list" resultMap="BaseResultMap">
+    SELECT * from Engineer where id in
+    <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+</select>
+open和close用来配置最后用什么前缀和后缀将foreach内部所有拼接的sql给包装起来
+
+-- 批量插入
+<insert id="insertBatch" parameterType="list">
+    INSERT INTO t_user (id,name,age) VALUES
+    <foreach collection="collection" separator="," item="item">
+        (#{item.id}, #{item.name}, #{item.age})
+    </foreach>
+</insert>
+
+-- 代码重用
+<include refid="需要引入的sql片段的id"/>
+
+#{} 占位符
+${} 字符串替换

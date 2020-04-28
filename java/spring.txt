@@ -31,11 +31,17 @@ Spring容器内部创建bean实例对象常见的有4种方式：
     <constructor-arg index="2" value="bean的值" ref="引用的bean名称" />
 </bean>
 
+@Scope注解 作用域
 bean的生命周期
+容器启动 - 实例化 - 数据装配 - 初始化（init） - 使用 - 销毁
 <bean id="singletonBean" class="com.javacode2018.lesson001.demo4.BeanScopeModel" scope="singleton">
     <constructor-arg index="0" value="singleton"/>
 </bean> -- 实例在容器启动过程中就创建好了
 prototype -- 每次获取都会重新创建一个bean实例对象，每次获取的时候才会去调用构造方法创建bean实例
+request 同一个请求单例
+session 同一个会话单例
+
+单例中bean的属性是线程不安全的，比如controller中的private name，经由两个controller赋值，视频中说这个属性是全局属性，如果是方法中的变量则不是全局的
 
 springmvc中controller默认是单例的
 
@@ -43,7 +49,7 @@ springmvc中controller默认是单例的
 @Qualifier("bmwCar") 如果一个借口有多个实现类，这样可以指定实现类
 
 @Configuration把一个类作为一个IoC容器，它的某个方法头上如果注册了@Bean，就会作为这个Spring容器中的Bean。
-@Scope注解 作用域
+
 @Lazy(true) 表示延迟初始化
 
 @Primary：自动装配时当出现多个Bean候选者时，被注解为@Primary的Bean将作为首选者，否则将抛出异常
@@ -53,12 +59,12 @@ springmvc中controller默认是单例的
 https://mp.weixin.qq.com/s?__biz=MzA5MTkxMDQ4MQ%3D%3D&chksm=88621efcbf1597eab943b064147b8fb8fd3dfbac0dc03f41d15d477ef94b60d4e8f78c66b262&idx=1&lang=zh_CN&mid=2648934082&scene=21&sn=c919886400135a0152da23eaa1f276c7&token=1042984313#wechat_redirect
 
 
+ApplicationContextHolder - 实现ApplicationContextAware接口，用于保证全局只有一个Ioc容器
 
+xxxFactoryBean（实现FactoryBean接口） - 一般这个名字的，取到的都不是这个本类的实例，而是他其中getObject中返回的实例
 
-
-
-
-
+ehcacheManager.setCacheManagerConfigFile("classpath:ehcache-shiro.xml"); -- 类路径下
+ehcacheManager.setCacheManagerConfigFile("file:c:/ehcache-shiro.xml"); -- 文件路径
 
 
 
