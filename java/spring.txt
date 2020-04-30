@@ -66,7 +66,8 @@ xxxFactoryBean（实现FactoryBean接口） - 一般这个名字的，取到的�
 ehcacheManager.setCacheManagerConfigFile("classpath:ehcache-shiro.xml"); -- 类路径下
 ehcacheManager.setCacheManagerConfigFile("file:c:/ehcache-shiro.xml"); -- 文件路径
 
-
+@Autowired - 默认按类型装配，如果有多个，按ByName
+@Value - 通过属性注入，不用写set get
 
 
 
