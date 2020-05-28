@@ -48,7 +48,6 @@ Mapper接口的原理
 这个使用java中的动态代理实现的，mybatis启动的时候会加载全局配置文件mybatis-config.xml，然后解析这个文件中的mapper元素指定的UserMapper.xml，
 会根据UserMapper.xml的namespace的值创建这个接口的一个动态代理，使用java.lang.reflect.Proxy类中的newProxyInstance方法
 
-
 public class ProxyTest {
     public static class UserMapperProxy implements InvocationHandler {
         private SqlSession sqlSession;

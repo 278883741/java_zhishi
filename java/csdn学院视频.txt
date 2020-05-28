@@ -14,3 +14,18 @@
 8.https://edu.csdn.net/course/detail/27126 - Java面试Offer直通车
 9.https://edu.csdn.net/course/detail/9082 - Nginx入门视频课程
 15.https://edu.csdn.net/course/detail/7907 - IDEA开发工具+Maven使用详解视频课程（适合初学者的教程）
+
+sudo vim /etc/profile
+export JAVA_HOME=/app/jdk1.8.0_231
+export CLASSPATH=.:$JAVA_HOME/lib
+export PATH=$PATH:$JAVA_HOME/bin
+
+source /etc/profile
+
+netstat -ntpl | grep 80 是否监听3306端口,是否启动
+ps aux | grep nginx
+
+sudo nginx
+sudo nginx -s stop
+sudo nginx -s reload
+

@@ -46,7 +46,7 @@ session 同一个会话单例
 springmvc中controller默认是单例的
 
 @Autowired(required=false) -- 如果不配置Bean会抛异常，这样就不错了，认为这两个属性为null
-@Qualifier("bmwCar") 如果一个借口有多个实现类，这样可以指定实现类
+@Qualifier("bmwCar") 如果一个接口有多个实现类，这样可以指定实现类
 
 @Configuration把一个类作为一个IoC容器，它的某个方法头上如果注册了@Bean，就会作为这个Spring容器中的Bean。
 
@@ -68,8 +68,3 @@ ehcacheManager.setCacheManagerConfigFile("file:c:/ehcache-shiro.xml"); -- 文件
 
 @Autowired - 默认按类型装配，如果有多个，按ByName
 @Value - 通过属性注入，不用写set get
-
-
-
-
-

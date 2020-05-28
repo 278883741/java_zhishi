@@ -1,4 +1,4 @@
-https://blog.csdn.net/linzhiqiang0316/article/details/80473906
+每周10道Java面试题 -- https://www.cnblogs.com/gxq666/p/9933020.html
 
 每周10道Java面试题：集合类 - http://www.importnew.com/31126.html
 每周10道Java面试题：String, String Pool, StringBuilder - http://www.importnew.com/31022.html
@@ -80,7 +80,7 @@ Thread类中的start()和run()方法有什么区别?
   才会启动新线程。
 
 wait()与sleep()的区别
-  sleep()来自Thread类，和wait()来自Object类。调用sleep()方法的过程中，线程不会释放对象锁。而 调用 wait 方法线程会释放对象锁
+  sleep()来自Thread类，和wait()来自Object类。调用sleep()方法的过程中，线程不会释放对象锁。而调用wait()方法线程会释放对象锁
   sleep()睡眠后不出让系统资源，wait让其他线程可以占用CPU
   sleep(milliseconds)需要指定一个睡眠时间，时间一到会自动唤醒.而wait()需要配合notify()或者notifyAll()使用
   也可见代码
@@ -136,3 +136,22 @@ mysql null与空的区别
   2.在进行count()统计某列的记录数的时候，不会统计列值为null的。
   3.<>会过滤空和null的
   4.对于MySQL特殊的注意事项，对于timestamp数据类型，如果往这个数据类型插入的列插入NULL值，则出现的值是当前系统时间。插入空值，则会出现 ‘0000-00-00 00:00:00’ 
+
+修饰符public,private,protected,以及不写时的区别
+修饰符	     当前类	同一package	子孙类	其他package
+public	        √	   √	        √	√
+protected	√	   √		√	×
+default	        √	   √		×	×       
+private	        √	   ×		×	×
+
+String s = new String("xyz");创建了几个String Object
+一个字符对象，一个字符对象引用对象
+
+Overload和Override的区别。Overloaded的方法是否可以改变返回值的类型
+Overloaded的方法是可以改变返回值的类型
+
+-- 接口是否可继承接口
+接口可以继承接口。
+抽象类可以实现接口，
+抽象类可继承实体类，但前提是实体类必须有明确的构造函数
+
