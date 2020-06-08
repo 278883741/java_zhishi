@@ -21,7 +21,8 @@ spring-mvc处理请求的方式 : 非注解版（2.0及之前版本）、注解版（2.5之后）
 a 客户端提交hello.do请求,将请求提交到web.xml(web容器)，被web容器中注册的DIspatcherServlet拦截到；DispatcherServlet将其拦截到的所有请求转发给ioc容器中注册的请求解析器
 
 b spring-mvc为了实现对请求的解析提供了两种请求解析器 : 字符/字节 
-  字符解析器提供了一个HandlerMapping接口，可以使用它提供的任何一个实现类实现对请求的解析。在该接口中，提供了两个默认的请求解析器：SimpleUrlHandlerMapping /DefaultAnnoationHandlerMapping 具体使用哪一个，
+  字符解析器提供了一个HandlerMapping接口，可以使用它提供的任何一个实现类实现对请求的解析。
+  在该接口中，提供了两个默认的请求解析器：SimpleUrlHandlerMapping /DefaultAnnoationHandlerMapping 具体使用哪一个，
   取决于当前的ioc环境是否是注解环境，将ioc环境设置为注解环境的方式 : context:component-scan 扫描包结构。 
 请求解析器解析请求的方式都不一样，但是解析的结构是相同的: 
 获取表示请求的字符串 “/hello”

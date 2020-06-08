@@ -86,12 +86,16 @@
       以请求http://localhost:8080/app1/index.html为例，首先通过协议和端口号（http和8080）选定Service；然后通过主机名（localhost）选定Host；然后通过uri（/app1/index.html）选定Web应用。
 -->
 
-tomcat的连接数与线程池
-tomcat中Connector的协议 
-BIO（Tomcat8.5及9.0去掉了对BIO的支持）：阻塞的IO
-NIO：非阻塞的IO
-APR：Apr是在Tomcat上运行高并发应用的首选模式，但是需要安装apr、apr-utils、tomcat-native等包
-
+<!--
+    tomcat 有那几种Connector 运行模式？
+    1、bio ==> 默认的模式,性能最差，没有经过任何优化处理和支持，BIO（Tomcat8.5及9.0去掉了对BIO的支持）：阻塞的IO
+    <Connector port="8080" redirectPort="8443" connectionTimeout="20000" protocol="HTTP/1.1"/>
+    2、nio ==> 拥有比传统I/O操作更好的并发运行性能，NIO：非阻塞的IO
+    <Connector port="8080" redirectPort="8443" connectionTimeout="20000" protocol="org.apache.coyte.http11.Http11NioPortocol"/>
+    3、APR：Apr是在Tomcat上运行高并发应用的首选模式，但是需要安装apr、apr-utils、tomcat-native等包
+-->
+	tomcat的连接数与线程池
+	
 1、连接数
 假设Tomcat接收http请求的端口是8083，则可以使用如下语句查看连接情况：
 netstat –nat | grep 8083
