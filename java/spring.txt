@@ -68,3 +68,6 @@ ehcacheManager.setCacheManagerConfigFile("file:c:/ehcache-shiro.xml"); -- 文件
 
 @Autowired - 默认按类型装配，如果有多个，按ByName
 @Value - 通过属性注入，不用写set get
+
+@ModelAttribute 自定义的参数模型默认加这个标签
+@sessionAttribute("user") - 说是把request作用域参数放在session里

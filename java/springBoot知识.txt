@@ -1,3 +1,39 @@
+@SpringBootApplication
+-- @Configuration 
+-- @EnableAutoConfiguration ²éÕÒ£¬¼ÓÔØËùĞèµÄconfiguration£¬¶ÁÈ¡ application.properties »ò application.yml ÎÄ¼şÖĞµÄÅäÖÃ
+-- @ComponentScan É¨Ãè @Service,@Repository,@Component,@Controller
+
+@EnableWebMvc
+-- ±àĞ´Ò»¸öÀàÊµÏÖWebMvcConfigurer¾Í¿ÉÒÔÊµÏÖÅäÖÃWebMvc£¬ÅäÖÃspringMvc¸÷¸ö²½Öè£¬ÖØĞ´ÊÓÍ¼½âÎö£¬×ÊÔ´Ó³ÉäµÈµÈ·½·¨
+
+-- ¾²Ì¬×ÊÔ´µÄ´¦Àí
+# Õâ±íÊ¾Ö»ÓĞ¾²Ì¬×ÊÔ´µÄ·ÃÎÊÂ·¾¶Îª/resources/**Ê±£¬²Å»á´¦ÀíÇëÇó
+spring.mvc.static-path-pattern=/resources/**£¬
+# È¥ÄÄ²éÕÒ¾²Ì¬×ÊÔ´
+spring.resources.static-locations = classpath:/META-INF/resources/,classpath:/static/,file:C:/Users/zYS2349/Documents/,file:E:/GCM/trunk/backEnd/src/main/webapp/upload
+
+# ÒÔÏÂÁ½ÖÖÊÇÏàµÈµÄ
+<mvc:resources mapping="/resources/**" location="/public-resources/">
+    <mvc:cache-control max-age="3600" cache-public="true"/>
+</mvc:resources>
+public class WebAppConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/**").addResourceLocations("/");
+
+        registry.addResourceHandler("/**")
+        	.addResourceLocations("/")
+        	.addResourceLocations("file:C:/Users/zYS2349/Documents/½ØÍ¼/")
+
+            .addResourceLocations("file:E:/GCM/trunk/backEnd/src/main/webapp/upload/")
+            .addResourceLocations("file:/app/spos_upload/")
+            .addResourceLocations("file:E:/ÖªÊ¶µã/º£Íâ·şÎñÇşµÀ/svn¼ì³öÏîÄ¿/backEnd/src/main/webapp/upload/");
+    }
+}
+
+
 springboot ÕûºÏĞí¶àµÚÈı·½ÒÀÀµ£¬²¢ÇÒ×öÁËÄ¬ÈÏÅäÖÃ,²»ÓÃÎÒÃÇ×Ô¼ºÊÖ¶¯µÄÈ¥Ğ´Ò»¶ÑxmlÅäÖÃÈ»ºó½øĞĞÅäÖÃ£¬ÄÚÇ¶ÁËserlet£¨tomcat£©ÈİÆ÷
 
 ´´½¨ÏîÄ¿
@@ -72,3 +108,11 @@ $ sudo docker tag [ImageId] registry.cn-qingdao.aliyuncs.com/yushusc/test:[¾µÏñ°
 $ sudo docker push registry.cn-qingdao.aliyuncs.com/yushusc/test:[¾µÏñ°æ±¾ºÅ]
 -- À­È¡¾µÏñ
 $ sudo docker pull registry.cn-qingdao.aliyuncs.com/yushusc/test:[¾µÏñ°æ±¾ºÅ]
+
+
+1.¿Í»§¶Ë·¢ÆğÇëÇó -¡·DIspatcherServlet¡¾Ç°¶Ë¿ØÖÆÆ÷¡¿£¬ÓÃÀ´·Ö·¢ÇëÇó
+2.HandlerMapping¡¾Ó³Éä´¦ÀíÆ÷¡¿£¬¸ù¾İÇëÇóurlÕÒµ½¶ÔÓ¦Handler¡¾Controller¡¿
+3.½«Handler·µ»Ø¸øDIspatcherServlet
+HandlerAdapter
+ÊÊÅäÆ÷£¬ÓÃÀ´ÊÊÅä²»Í¬µÄ´¦ÀíÆ÷Handler
+´¦ÀíÆ÷ÓĞÁ½ÖÖÊµÏÖ·½Ê½£¬ÊµÏÖ½Ó¿Ú£¬»ùÓÚ×¢½â£¬ËùÒÔÖ´ĞĞÖ®Ç°ĞèÒªÏÈÊÊÅäHandler
