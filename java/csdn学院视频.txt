@@ -1,7 +1,8 @@
 1.https://edu.csdn.net/combo/detail/1487 - 一站式学习Java框架技术（Maven+SSM+SpringBoot+Shiro+Redis+Nginx+项目实战）
 
 10.https://edu.csdn.net/course/detail/9080 - SpringBoot 2.0入门视频课程
-11.https://edu.csdn.net/course/detail/8713 - Shiro入门视频课程（适合初学者的教程）
+https://edu.csdn.net/course/detail/8713
+11.https://edu.csdn.net/course/play/25460/303518 - Shiro - 3
 12.https://edu.csdn.net/course/detail/9091 - Redis入门视频课程
 4.https://edu.csdn.net/course/detail/9314 - RabbitMQ实战教程
 7.https://edu.csdn.net/course/detail/26270 - Java并发编程精讲（选）
@@ -36,4 +37,3 @@ ps aux | grep nginx
 sudo nginx
 sudo nginx -s stop
 sudo nginx -s reload
-
