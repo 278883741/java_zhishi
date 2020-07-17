@@ -1,6 +1,7 @@
 @SpringBootApplication
--- @Configuration 
--- @EnableAutoConfiguration 查找，加载所需的configuration，读取 application.properties 或 application.yml 文件中的配置
+-- @Configuration 表示配置类
+-- @EnableAutoConfiguration 在启动时会查找auto依赖下/META-INF/spring.factories中获取EnableAutoConfiguration的值，然后自动进行配置
+   帮我们配置了DispatcherServlet，AOP等等
 -- @ComponentScan 扫描 @Service,@Repository,@Component,@Controller
 
 @EnableWebMvc
