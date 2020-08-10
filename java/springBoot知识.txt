@@ -111,9 +111,25 @@ $ sudo docker push registry.cn-qingdao.aliyuncs.com/yushusc/test:[镜像版本号]
 $ sudo docker pull registry.cn-qingdao.aliyuncs.com/yushusc/test:[镜像版本号]
 
 
-1.客户端发起请求 -》DIspatcherServlet【前端控制器】，用来分发请求
-2.HandlerMapping【映射处理器】，根据请求url找到对应Handler【Controller】
-3.将Handler返回给DIspatcherServlet
-HandlerAdapter
-适配器，用来适配不同的处理器Handler
-处理器有两种实现方式，实现接口，基于注解，所以执行之前需要先适配Handler
+1.客户端发起请求 
+2.DispatcherServlet 接收到请求
+3.通过 HandlerMapping 找到对应的 handler
+4.然后通过 HandlerAdapter 调用 Controller 进行后续业务逻辑处理（3-4）
+5.处理完业务逻辑后，Controller 将视图名返回给 HandlerAdapter
+6.DispatcherServlet 选择合适的 ViewResolver 生成 View 对象
+7.最后 View 渲染并返回响应数据
+
+多个拦截器执行顺序 - 类似栈的先进后出
+拦截器1 preHandle 
+拦截器2 preHandle
+拦截器2 postHandle
+拦截器1 postHandle
+拦截器2 afterHandle
+拦截器1 afterHandle
+
+jialinghang - 系统配置
+lichao - chenbinlong（lync） - 代码
+guozhaoyang - 代码
+
+253924 - 测试环境供应商
+30561 - 管理员
