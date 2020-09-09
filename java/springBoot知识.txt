@@ -1,6 +1,6 @@
 @SpringBootApplication
 -- @Configuration ±íÊ¾ÅäÖÃÀà
--- @EnableAutoConfiguration ÔÚÆô¶¯Ê±»á²éÕÒautoÒÀÀµÏÂ/META-INF/spring.factoriesÖĞ»ñÈ¡EnableAutoConfigurationµÄÖµ£¬È»ºó×Ô¶¯½øĞĞÅäÖÃ
+-- @EnableAutoConfiguration ÔÚÆô¶¯Ê±»á²éÕÒautoÒÀÀµÏÂ/META-INF/spring.factoriesÖĞ»ñÈ¡autoconfigureµÄÖµ£¬È»ºó×Ô¶¯½øĞĞÅäÖÃ
    °ïÎÒÃÇÅäÖÃÁËDispatcherServlet£¬AOPµÈµÈ
 -- @ComponentScan É¨Ãè @Service,@Repository,@Component,@Controller
 
@@ -8,8 +8,8 @@
 -- ±àĞ´Ò»¸öÀàÊµÏÖWebMvcConfigurer¾Í¿ÉÒÔÊµÏÖÅäÖÃWebMvc£¬ÅäÖÃspringMvc¸÷¸ö²½Öè£¬ÖØĞ´ÊÓÍ¼½âÎö£¬×ÊÔ´Ó³ÉäµÈµÈ·½·¨
 
 -- ¾²Ì¬×ÊÔ´µÄ´¦Àí
-# Õâ±íÊ¾Ö»ÓĞ¾²Ì¬×ÊÔ´µÄ·ÃÎÊÂ·¾¶Îª/resources/**Ê±£¬²Å»á´¦ÀíÇëÇó
-spring.mvc.static-path-pattern=/resources/**£¬
+# ·ÃÎÊ¾²Ì¬×ÊÔ´ÎÄ¼şÒª¼Óstatic²ÅĞĞ£¬µ±°ÑÕâ¸öÅäÖÃÏî³ıµôÊ±£¬²»ÓÃ¼Óstatic×÷ÎªÇ°×ºÒà¿É½øĞĞÕı³£·ÃÎÊ
+spring.mvc.static-path-pattern=/static/**£¬
 # È¥ÄÄ²éÕÒ¾²Ì¬×ÊÔ´
 spring.resources.static-locations = classpath:/META-INF/resources/,classpath:/static/,file:C:/Users/zYS2349/Documents/,file:E:/GCM/trunk/backEnd/src/main/webapp/upload
 
@@ -23,14 +23,6 @@ public class WebAppConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
         registry.addResourceHandler("/**").addResourceLocations("/");
-
-        registry.addResourceHandler("/**")
-        	.addResourceLocations("/")
-        	.addResourceLocations("file:C:/Users/zYS2349/Documents/½ØÍ¼/")
-
-            .addResourceLocations("file:E:/GCM/trunk/backEnd/src/main/webapp/upload/")
-            .addResourceLocations("file:/app/spos_upload/")
-            .addResourceLocations("file:E:/ÖªÊ¶µã/º£Íâ·şÎñÇşµÀ/svn¼ì³öÏîÄ¿/backEnd/src/main/webapp/upload/");
     }
 }
 
@@ -78,6 +70,29 @@ https://blog.csdn.net/fxbin123/article/details/81058618 - Spring Boot Æô¶¯Ô­Àí -
 -- ²é¿´linux°æ±¾ĞÅÏ¢
 lsb_release -a
 
+1.¿Í»§¶Ë·¢ÆğÇëÇó 
+2.DispatcherServlet ½ÓÊÕµ½ÇëÇó
+3.Í¨¹ı HandlerMapping ÕÒµ½¶ÔÓ¦µÄ handler
+4.(È»ºóÍ¨¹ı HandlerAdapter) µ÷ÓÃ Controller ½øĞĞºóĞøÒµÎñÂß¼­´¦Àí
+5.´¦ÀíÍêÒµÎñÂß¼­ºó£¬Controller ½«ÊÓÍ¼Ãû·µ»Ø¸ø HandlerAdapter
+6.DispatcherServlet Ñ¡ÔñºÏÊÊµÄ ViewResolver Éú³É View ¶ÔÏó
+7.×îºó View äÖÈ¾²¢·µ»ØÏìÓ¦Êı¾İ
+
+¶à¸öÀ¹½ØÆ÷Ö´ĞĞË³Ğò - ÀàËÆÕ»µÄÏÈ½øºó³ö
+À¹½ØÆ÷1 preHandle 
+À¹½ØÆ÷2 preHandle
+À¹½ØÆ÷2 postHandle
+À¹½ØÆ÷1 postHandle
+À¹½ØÆ÷2 afterHandle
+À¹½ØÆ÷1 afterHandle
+
+jialinghang - ÏµÍ³ÅäÖÃ
+lichao - chenbinlong£¨lync£© - ´úÂë
+guozhaoyang - ´úÂë
+
+253924 - ²âÊÔ»·¾³¹©Ó¦ÉÌ
+30561 - ¹ÜÀíÔ±
+
 ===============centos°²×°Docker======================
 1.Ìí¼ÓyumÔ´
 yum install epel-release -y
@@ -109,27 +124,3 @@ $ sudo docker tag [ImageId] registry.cn-qingdao.aliyuncs.com/yushusc/test:[¾µÏñ°
 $ sudo docker push registry.cn-qingdao.aliyuncs.com/yushusc/test:[¾µÏñ°æ±¾ºÅ]
 -- À­È¡¾µÏñ
 $ sudo docker pull registry.cn-qingdao.aliyuncs.com/yushusc/test:[¾µÏñ°æ±¾ºÅ]
-
-
-1.¿Í»§¶Ë·¢ÆğÇëÇó 
-2.DispatcherServlet ½ÓÊÕµ½ÇëÇó
-3.Í¨¹ı HandlerMapping ÕÒµ½¶ÔÓ¦µÄ handler
-4.È»ºóÍ¨¹ı HandlerAdapter µ÷ÓÃ Controller ½øĞĞºóĞøÒµÎñÂß¼­´¦Àí£¨3-4£©
-5.´¦ÀíÍêÒµÎñÂß¼­ºó£¬Controller ½«ÊÓÍ¼Ãû·µ»Ø¸ø HandlerAdapter
-6.DispatcherServlet Ñ¡ÔñºÏÊÊµÄ ViewResolver Éú³É View ¶ÔÏó
-7.×îºó View äÖÈ¾²¢·µ»ØÏìÓ¦Êı¾İ
-
-¶à¸öÀ¹½ØÆ÷Ö´ĞĞË³Ğò - ÀàËÆÕ»µÄÏÈ½øºó³ö
-À¹½ØÆ÷1 preHandle 
-À¹½ØÆ÷2 preHandle
-À¹½ØÆ÷2 postHandle
-À¹½ØÆ÷1 postHandle
-À¹½ØÆ÷2 afterHandle
-À¹½ØÆ÷1 afterHandle
-
-jialinghang - ÏµÍ³ÅäÖÃ
-lichao - chenbinlong£¨lync£© - ´úÂë
-guozhaoyang - ´úÂë
-
-253924 - ²âÊÔ»·¾³¹©Ó¦ÉÌ
-30561 - ¹ÜÀíÔ±
