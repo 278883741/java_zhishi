@@ -1,10 +1,10 @@
 spring是一个开源的IOC和AOP容器框架，可以集成其他框架
 
-1.org.springframework.beans.factory.BeanFactory 
+1.org.springframework.beans.factory.BeanFactory
   -- 这个是spring容器的顶层接口，提供了容器最基本的功能
-2.org.springframework.context.ApplicationContext 
+2.org.springframework.context.ApplicationContext
   -- 继承了BeanFactory接口，并且在其上进行了扩展，增加了很多功能，比如AOP、国际化、事件支持等等。。
-3.org.springframework.context.support.ClassPathXmlApplicationContext 
+3.org.springframework.context.support.ClassPathXmlApplicationContext
   -- 这个类实现了ApplicationContext接口，这个容器类可以从classpath中加载bean xml配置文件，然后创建xml中配置的bean对象
 4.org.springframework.context.annotation.AnnotationConfigApplicationContext
   -- 这个类实现了ApplicationContext接口，bean的定义支持xml的方式和注解的方式，当我们使用注解的方式定义bean的时候，就需要用到这个容器来装载了
@@ -34,16 +34,16 @@ Spring容器内部创建bean实例对象常见的有4种方式：
 @Scope注解 作用域
 bean的生命周期
 容器启动 - 实例化 - 数据装配 - 初始化（init） - 使用 - 销毁
+
+springmvc中controller默认是单例的
 <bean id="singletonBean" class="com.javacode2018.lesson001.demo4.BeanScopeModel" scope="singleton">
     <constructor-arg index="0" value="singleton"/>
 </bean> -- 实例在容器启动过程中就创建好了
-prototype -- 每次获取都会重新创建一个bean实例对象，每次获取的时候才会去调用构造方法创建bean实例
+prototype -- 每次获取都会重新创建一个bean实例对象，也就是多例
 request 同一个请求单例
 session 同一个会话单例
 
 单例中bean的属性是线程不安全的，比如controller中的private name，经由两个controller赋值，视频中说这个属性是全局属性，如果是方法中的变量则不是全局的
-
-springmvc中controller默认是单例的
 
 @Autowired(required=false) -- 如果不配置Bean会抛异常，这样就不错了，认为这两个属性为null
 @Qualifier("bmwCar") 如果一个接口有多个实现类，这样可以指定实现类
@@ -55,13 +55,28 @@ springmvc中controller默认是单例的
 @Primary：自动装配时当出现多个Bean候选者时，被注解为@Primary的Bean将作为首选者，否则将抛出异常
 @Async异步方法调用
 
+@Compent和@Bean的区别
+@Bean 多用于方法，一般和@Configuration一起使用，如果想将第三方的类变成组件，你又没有没有源代码，也就没办法使用@Component进行自动配置，这种时候使用@Bean（方法返回值）就比较合适了
+@Compent 多用于类
+
+Filter和Interceptor的区别
+Filter 是随你的web应用启动而启动的，只初始化一次，以后就可以拦截相关请求，只有当你的web应用停止或重新部署的时候才销毁。
+       在Request到达Servlet之前，拦截客户的Request。
+       根据需要检查HttpServletRequest，也可以修改HttpServletRequest头和数据。
+       在HttpServletResponse到达客户端之前，拦截HttpServletResponse。
+       根据需要检查HttpServletResponse，也可以修改HttpServletResponse头和数据。
+Interceptor 是针对方法的
+在Spring构架的程序中，要优先使用拦截器。几乎所有Filter能够做的事情，interceptor都能够轻松的实现。
+
+注解原理：
+注解本质是一个继承了Annotation的特殊接口，其具体实现类是Java运行时生成的动态代理类。
+
+JDK和CGLib的区别
+JDK动态代理只能对实现了接口的类生成代理，而不能针对类
+CGLib是针对类实现代理，主要是对指定的类生成一个子类，覆盖其中的方法（继承）
+
 -- 代理知识
 https://mp.weixin.qq.com/s?__biz=MzA5MTkxMDQ4MQ%3D%3D&chksm=88621efcbf1597eab943b064147b8fb8fd3dfbac0dc03f41d15d477ef94b60d4e8f78c66b262&idx=1&lang=zh_CN&mid=2648934082&scene=21&sn=c919886400135a0152da23eaa1f276c7&token=1042984313#wechat_redirect
-
-
-ApplicationContextHolder - 实现ApplicationContextAware接口，用于保证全局只有一个Ioc容器
-
-xxxFactoryBean（实现FactoryBean接口） - 一般这个名字的，取到的都不是这个本类的实例，而是他其中getObject中返回的实例
 
 ehcacheManager.setCacheManagerConfigFile("classpath:ehcache-shiro.xml"); -- 类路径下
 ehcacheManager.setCacheManagerConfigFile("file:c:/ehcache-shiro.xml"); -- 文件路径
@@ -83,11 +98,7 @@ Spring事务的种类：
 spring支持编程式事务管理和声明式事务管理两种方式：
 编程式事务管理使用TransactionTemplate。
 声明式事务管理建立在AOP之上的。其本质是通过AOP功能，对方法前后进行拦截，将事务处理的功能编织到拦截的方法中，也就是在目标方法开始之前加入一个事务，
-在执行完目标方法之后根据执行情况提交或者回滚事务。
-
-声明式事务最大的优点就是不需要在业务逻辑代码中掺杂事务管理的代码，只需在配置文件中做相关的事务规则声明或通过@Transactional注解的方式，便可以将事务规则应用到业务逻辑中。
-
-声明式事务管理要优于编程式事务管理，这正是spring倡导的非侵入式的开发方式，使业务代码不受污染，只要加上注解就可以获得完全的事务支持。唯一不足地方是，
+在执行完目标方法之后根据执行情况提交或者回滚事务,
 最细粒度只能作用到方法级别，无法做到像编程式事务那样可以作用到代码块级别。
 （2）spring的事务传播行为：
 spring事务的传播行为说的是，当多个事务同时存在的时候，spring如何处理这些事务的行为。
@@ -104,3 +115,11 @@ ISOLATION_READ_UNCOMMITTED：读未提交，允许另外一个事务可以看到
 ISOLATION_READ_COMMITTED： 读已提交，保证一个事务修改的数据提交后才能被另一事务读取，而且  能看到该事务对已有记录的更新。
 ISOLATION_REPEATABLE_READ：可重复读，保证一个事务修改的数据提交后才能被另一事务读取，但是不能看到该事务对已有记录的更新。
 ISOLATION_SERIALIZABLE：一个事务在执行的过程中完全看不到其他事务对数据库所做的更新。
+
+1. A类的a1方法没有标注@Transactional，a2方法标注@Transactional，在a1里面调用a2；
+2. 将@Transactional注解标注在非public方法上。
+
+@Transactional的工作机制是基于AOP实现的，而AOP是使用动态代理实现的。
+
+第一种为什么是错误用法，在a1里调用a2，即直接执行a2的原生方法，并不通过创建代理对象进行调用，
+所以并不会进入TransactionInterceptor的invoke方法，不会开启事务。

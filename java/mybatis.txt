@@ -22,7 +22,6 @@ mybatis中分为一级缓存和二级缓存。
 <cache/>
 
 -- 一二级缓存如果都开启的情况下，数据查询过程如下：
-
 当发起一个查询的时候，mybatis会先访问这个namespace对应的二级缓存，如果二级缓存中有数据则直接返回，否则继续向下查询一级缓存中是否有对应的数据，如果有则直接返回，否则继续向下
 访问db获取需要的数据，然后放在当前SqlSession对应的二级缓存中，并且在本地内存中的另外一个地方存储一份（这个地方我们就叫TransactionalCache）
 当SqlSession关闭的时候，也就是调用SqlSession的close方法的时候，此时会将TransactionalCache中的数据放到二级缓存中，并且会清空当前SqlSession一级缓存中的数据。
