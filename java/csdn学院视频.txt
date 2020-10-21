@@ -7,6 +7,8 @@ https://edu.csdn.net/course/detail/7906 - vue
 https://edu.csdn.net/course/detail/10634 - Netty高并发编程（应该看不懂，回头有机会再说吧）
 https://edu.csdn.net/course/detail/19568?spm=1002.2008.3001.4033 - ELK
 
+https://edu.csdn.net/course/detail/25646 - vue与springboot结合的项目实战，可以当练习
+
 -- 完结
 https://edu.csdn.net/course/detail/8045 -【SpringMVC】
 https://edu.csdn.net/course/play/8102/166029 - 【2019版】Spring4.3入门视频课程 -- 有机会再看看文档

@@ -1,13 +1,16 @@
 spring是一个开源的IOC和AOP容器框架，可以集成其他框架
-
-1.org.springframework.beans.factory.BeanFactory
+  
   -- 这个是spring容器的顶层接口，提供了容器最基本的功能
-2.org.springframework.context.ApplicationContext
+1.org.springframework.beans.factory.BeanFactory
+
   -- 继承了BeanFactory接口，并且在其上进行了扩展，增加了很多功能，比如AOP、国际化、事件支持等等。。
-3.org.springframework.context.support.ClassPathXmlApplicationContext
+2.org.springframework.context.ApplicationContext
+
   -- 这个类实现了ApplicationContext接口，这个容器类可以从classpath中加载bean xml配置文件，然后创建xml中配置的bean对象
-4.org.springframework.context.annotation.AnnotationConfigApplicationContext
+3.org.springframework.context.support.ClassPathXmlApplicationContext
+  
   -- 这个类实现了ApplicationContext接口，bean的定义支持xml的方式和注解的方式，当我们使用注解的方式定义bean的时候，就需要用到这个容器来装载了
+4.org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 引用 spring-core、spring-context、spring-beans 包
 
@@ -56,7 +59,7 @@ session 同一个会话单例
 @Async异步方法调用
 
 @Compent和@Bean的区别
-@Bean 多用于方法，一般和@Configuration一起使用，如果想将第三方的类变成组件，你又没有没有源代码，也就没办法使用@Component进行自动配置，这种时候使用@Bean（方法返回值）就比较合适了
+@Bean -- 多用于方法，一般和@Configuration一起使用，如果想将第三方的类变成组件，你又没有没有源代码，也就没办法使用@Component进行自动配置，这种时候使用@Bean（方法返回值）就比较合适了
 @Compent 多用于类
 
 Filter和Interceptor的区别
@@ -72,7 +75,7 @@ Interceptor 是针对方法的
 注解本质是一个继承了Annotation的特殊接口，其具体实现类是Java运行时生成的动态代理类。
 
 JDK和CGLib的区别
-JDK动态代理只能对实现了接口的类生成代理，而不能针对类
+JDK动态代理只能对实现了接口的类生成代理
 CGLib是针对类实现代理，主要是对指定的类生成一个子类，覆盖其中的方法（继承）
 
 -- 代理知识
@@ -95,20 +98,20 @@ BeanPostProcessor是Spring IOC容器给我们提供的一个扩展接口。接�
 ===调用BeanPostProcessor的postProcessAfterInitialization方法===
 
 Spring事务的种类：
-spring支持编程式事务管理和声明式事务管理两种方式：
-编程式事务管理使用TransactionTemplate。
-声明式事务管理建立在AOP之上的。其本质是通过AOP功能，对方法前后进行拦截，将事务处理的功能编织到拦截的方法中，也就是在目标方法开始之前加入一个事务，
-在执行完目标方法之后根据执行情况提交或者回滚事务,
-最细粒度只能作用到方法级别，无法做到像编程式事务那样可以作用到代码块级别。
+  spring支持编程式事务管理和声明式事务管理两种方式：
+  编程式事务管理使用TransactionTemplate。
+
+  声明式事务管理建立在AOP之上的。其本质是通过AOP功能，对方法前后进行拦截，将事务处理的功能编织到拦截的方法中，也就是在目标方法开始之前加入一个事务，在执行完目标方法之后根据执行情况提交或者回滚事务,
+  最细粒度只能作用到方法级别，无法做到像编程式事务那样可以作用到代码块级别。
 （2）spring的事务传播行为：
-spring事务的传播行为说的是，当多个事务同时存在的时候，spring如何处理这些事务的行为。
-PROPAGATION_REQUIRED：如果当前没有事务，就创建一个新事务，如果当前存在事务，就加入该事务，该设置是最常用的设置。
-PROPAGATION_SUPPORTS：支持当前事务，如果当前存在事务，就加入该事务，如果当前不存在事务，就以非事务执行。
-PROPAGATION_MANDATORY：支持当前事务，如果当前存在事务，就加入该事务，如果当前不存在事务，就抛出异常。
-PROPAGATION_REQUIRES_NEW：创建新事务，无论当前存不存在事务，都创建新事务。
-PROPAGATION_NOT_SUPPORTED：以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
-PROPAGATION_NEVER：以非事务方式执行，如果当前存在事务，则抛出异常。
-PROPAGATION_NESTED：如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则按REQUIRED属性执行。
+     spring事务的传播行为说的是，当多个事务同时存在的时候，spring如何处理这些事务的行为。
+       PROPAGATION_REQUIRED：如果当前没有事务，就创建一个新事务，如果当前存在事务，就加入该事务，该设置是最常用的设置。
+       PROPAGATION_SUPPORTS：支持当前事务，如果当前存在事务，就加入该事务，如果当前不存在事务，就以非事务执行。
+       PROPAGATION_MANDATORY：支持当前事务，如果当前存在事务，就加入该事务，如果当前不存在事务，就抛出异常。
+       PROPAGATION_REQUIRES_NEW：创建新事务，无论当前存不存在事务，都创建新事务。
+       PROPAGATION_NOT_SUPPORTED：以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。
+       PROPAGATION_NEVER：以非事务方式执行，如果当前存在事务，则抛出异常。
+       PROPAGATION_NESTED：如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则按REQUIRED属性执行。
 （3）Spring中的隔离级别：
 ISOLATION_DEFAULT：这是个 PlatfromTransactionManager 默认的隔离级别，使用数据库默认的事务隔离级别。
 ISOLATION_READ_UNCOMMITTED：读未提交，允许另外一个事务可以看到这个事务未提交的数据。
