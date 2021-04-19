@@ -19,8 +19,10 @@ spring.resources.static-locations = classpath:/META-INF/resources/,classpath:/st
 public class WebAppConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-        registry.addResourceHandler("/**").addResourceLocations("/");
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/META-INF/resources/")
+                .addResourceLocations("file:C:/Users/zYS2349/Documents/½ØÍ¼/")
+                .addResourceLocations("classpath:/static/");
     }
 }
 
@@ -97,3 +99,7 @@ $ sudo docker tag [ImageId] registry.cn-qingdao.aliyuncs.com/yushusc/test:[¾µÏñ°
 $ sudo docker push registry.cn-qingdao.aliyuncs.com/yushusc/test:[¾µÏñ°æ±¾ºÅ]
 -- À­È¡¾µÏñ
 $ sudo docker pull registry.cn-qingdao.aliyuncs.com/yushusc/test:[¾µÏñ°æ±¾ºÅ]
+
+1. @TransactionalÊµÏÖÔ­Àí
+2. AÀàµÄa1·½·¨Ã»ÓÐ±ê×¢@Transactional£¬a2·½·¨±ê×¢@Transactional£¬ÔÚa1ÀïÃæµ÷ÓÃa2£»
+3. ½«@Transactional×¢½â±ê×¢ÔÚ·Çpublic·½·¨ÉÏ¡£

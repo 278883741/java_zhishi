@@ -1,13 +1,15 @@
 https://edu.csdn.net/course/detail/26270 - Java并发编程精讲（选）
 https://edu.csdn.net/course/detail/27126 - Java面试Offer直通车
-https://edu.csdn.net/course/play/27216?spm=1002.2001.3001.4157- Nginx视频课程（实战篇）
+https://edu.csdn.net/course/play/27216 Nginx视频课程（实战篇）
 https://edu.csdn.net/course/detail/25645 - SpringBoot2.0前后端分离开发之用户身份认证实 
 https://edu.csdn.net/course/detail/7907 - IDEA开发工具+Maven使用详解视频课程
 https://edu.csdn.net/course/detail/7906 - vue
 https://edu.csdn.net/course/detail/10634 - Netty高并发编程（应该看不懂，回头有机会再说吧）
-https://edu.csdn.net/course/detail/19568?spm=1002.2008.3001.4033 - ELK
+https://edu.csdn.net/course/detail/19568 - ELK
 
 https://edu.csdn.net/course/detail/25646 - vue与springboot结合的项目实战，可以当练习
+https://edu.csdn.net/course/detail/29168 - Vue、Spring Boot开发小而完整的Web前后端分
+https://edu.csdn.net/course/detail/27152 - springCloud简介
 
 -- 完结
 https://edu.csdn.net/course/detail/8045 -【SpringMVC】
